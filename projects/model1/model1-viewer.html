@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLIMPSE</title>
+    <link rel="stylesheet" href="/projects/model1/model1-styles.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+
+<body>
+    <h1 class="title">GF CHAIR</h1>
+
+    <a href="../../index.html" class="back-button">
+        <img src="../../main page/LOGO.png" alt="Back" style="width: 70px; height: auto;">
+    </a>
+
+    <model-viewer id="viewer"
+    src="/projects/model1/model1.gltf"
+    vr
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    camera-controls
+    camera-orbit="130deg 90deg 3.2m"
+    min-camera-orbit="-720deg 0deg 3.2m"
+    max-camera-orbit="720deg 90deg 3.2m"
+    min-field-of-view="30deg"
+    max-field-of-view="30deg"
+    disable-zoom
+    auto-rotate
+    shadow-intensity="1"
+    environment-image="/projects/model1/model1.hdr">
+
+    <button slot="ar-button" class="ar-button">
+        <img src="../augmented reality logo.gif">
+    </button>
+
+</model-viewer>
+
+
+<!-- GALERIA -->
+<div class="gallery">
+    <div class="gallery-items">
+      <div class="gallery-item"><img src="./IMG/1.jpeg"></div>
+      <!-- More items here -->
+    </div>
+</div>
+
+
+<!-- SETA MAIS INFORMAÇÕES -->
+<div class="wrap">
+    <span class="arrow left">
+      <span></span>
+      <span></span>
+    </span>
+</div>
+
+
+<!-- DESCRIÇÃO -->
+    <div class="bottom-left">
+      <h1>GF CHAIR</h1>
+      <p>GONCALO FERNANDES</p>
+      <p1>VISEU | PORTUGAL</p1>
+</div>
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

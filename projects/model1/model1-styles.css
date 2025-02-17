@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Vina+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Source+Sans+Pro:wght@300;400;700&display=swap');
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to top, rgb(255, 255, 255) 35%, rgba(190, 137, 38, 0.712));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+model-viewer {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/*TÍTULO */
+.title {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleY(1.5);
+    margin: 0;
+    font-size: 20vw; /* Adjust this value for better scaling */
+    font-family: 'Vina Sans', sans-serif;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: linear-gradient(rgb(255, 255, 255) 10%, transparent 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Animation for fading in from bottom */
+    animation: fadeInBottom 1s ease-out forwards; /* Adjust timing as needed */
+}
+
+@keyframes fadeInBottom {
+    0% {
+        transform: translate(-50%, 30%) scaleY(1.5); /* Start from 30% */
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scaleY(1.5); /* End at center */
+        opacity: 1;
+    }
+}
+
+/* LOGO - VOLTA MAIN PAGE*/
+.back-button {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 1;
+    width: 70px; /* Adjust logo size */
+    height: auto;
+}
+
+/* BOTÃO REALIDADE AUMENTADA */
+.ar-button {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+.ar-button img {
+    width: 50px;
+    height: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+
+
+/* Experience Box (Thumbnail) */
+.experience-box {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 300px; /* Adjust size */
+    height: 200px; /* Adjust size */
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.7); /* Dark background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; /* Show pointer on hover */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    display: none;
+}
+
+/* Image inside the experience box */
+.experience-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+/* DESCRIÇÃO */
+.bottom-left {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 1;
+    text-align: left;
+    display: none;
+  } 
+  .bottom-left h1 {
+    margin: 0;
+    font-size: 50px;
+    font-family: 'Anton', sans-serif; /* Bold, strong font for title */
+    color: rgba(0, 0, 0, 1);
+  }
+  .bottom-left p {
+    margin: 0;
+    font-size: 20px;
+    font-family: 'Vina Sans', sans-serif;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  .bottom-left p1 {
+    margin: 0;
+    font-size: 15px;
+    font-family: 'Vina Sans', sans-serif;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+
+
+
+  
+
+/* Arrow Styling */
+.arrow {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline-block;
+    position: relative;
+    z-index: 100;
+  }
+  
+  .arrow span {
+    top: 0.5rem;
+    position: absolute;
+    width: 0.84rem;
+    height: 0.3rem;
+    background-color: #000000;
+    display: inline-block;
+    transition: all 0.2s ease;
+  }
+  
+  .arrow span:first-of-type {
+    left: 0;
+    transform: rotate(-45deg);
+  }
+  
+  .arrow span:last-of-type {
+    right: 0;
+    transform: rotate(45deg);
+  }
+  
+  .arrow.active span:first-of-type {
+    transform: rotate(45deg);
+  }
+  
+  .arrow.active span:last-of-type {
+    transform: rotate(-45deg);
+  }
+  
+  /* Left-Right Arrow Styles */
+  .arrow--l-r {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline-block;
+    position: relative;
+  }
+  
+  .arrow--l-r.left span:nth-child(4) {
+    transform: rotate(-45deg);
+  }
+  
+  .arrow--l-r.left span:nth-child(5) {
+    transform: rotate(45deg);
+  }
+  
+  .arrow--l-r.right span:nth-child(1) {
+    transform: rotate(-45deg);
+  }
+  
+  .arrow--l-r.right span:nth-child(2) {
+    transform: rotate(45deg);
+  }
+  
+  .arrow--l-r span {
+    position: absolute;
+    height: 0.1rem;
+    background-color: #efefef;
+    transition: transform 0.2s ease;
+  }
+  
+  .arrow--l-r span:nth-child(1),
+  .arrow--l-r span:nth-child(2),
+  .arrow--l-r span:nth-child(4),
+  .arrow--l-r span:nth-child(5) {
+    width: 0.625rem;
+    top: 0.625rem;
+  }
+  
+  .arrow--l-r span:nth-child(1) {
+    right: 0;
+    transform-origin: bottom right;
+  }
+  
+  .arrow--l-r span:nth-child(2) {
+    right: 0;
+    transform-origin: top right;
+  }
+  
+  .arrow--l-r span:nth-child(3) {
+    width: 1.25rem;
+    top: 0.625rem;
+  }
+  
+  .arrow--l-r span:nth-child(4) {
+    left: 0;
+    transform-origin: bottom left;
+  }
+  
+  .arrow--l-r span:nth-child(5) {
+    left: 0;
+    transform-origin: top left;
+  }
+  
+  /* Wrap Container */
+  .wrap {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* Hover effect */
+  .wrap:hover {
+    transform: translateX(-50%) scale(1.2);  /* Ensure it scales from the center */
+  }
+  
+
+
+
+
+
+/* Gallery container */
+.gallery {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 320px;
+  max-height: 91%; /* Maximum height as per the viewport */
+  background: rgba(255, 255, 255, 0.281);
+  padding: 10px;
+  overflow-y: auto;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content at the top */
+}
+
+/* Gallery items wrapper */
+.gallery-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px; /* Space between items */
+}
+
+/* Individual gallery item */
+.gallery-item {
+  flex: 1 1 150px; /* Allow images to grow and shrink with a minimum width */
+  margin-bottom: 15px; /* Space between items */
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  max-height: 200px; /* Max height for individual items */
+}
+
+/* Image styles */
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  max-height: 100%; /* Prevent images from exceeding the container height */
+  object-fit: cover; /* Ensure images cover their containers */
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effects */
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.gallery-item img:hover {
+  transform: scale(1.1);
+}
+
+
+
+
+
+
+
+
+

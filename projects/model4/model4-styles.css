@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Vina+Sans&display=swap');
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to top, rgb(255, 255, 255) 35%, rgba(255, 195, 84, 0.712));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+}
+
+model-viewer {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.title {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleY(2);
+    margin: 0;
+    font-size: 15vw; /* Adjust this value for better scaling */
+    font-family: 'Vina Sans', sans-serif;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: linear-gradient(rgb(255, 255, 255) 80%, transparent 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+/* Animation for fading in from bottom */
+animation: fadeInBottom 1s ease-out forwards; /* Adjust timing as needed */
+}
+/* ANIMAÇÃO TÍTULO */
+@keyframes fadeInBottom {
+    0% {
+        transform: translate(-50%, 100%) scaleY(1.5); /* Start from bottom */
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scaleY(1.5); /* End at center */
+        opacity: 1;
+    }
+}
+
+.back-button {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 1;
+}
+

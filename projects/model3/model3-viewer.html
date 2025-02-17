@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLIMPSE</title>
+    <link rel="stylesheet" href="/projects/model3/model3-styles.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+
+<body>
+    <h1 class="title">EDP</h1>
+
+    <a href="../../index.html" class="back-button">
+        <img src="../../LOGO.png" alt="Back" style="width: 70px; height: auto;">
+    </a>
+
+    <model-viewer id="viewer"
+    src="/projects/model3/model3.gltf"
+    vr
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    camera-controls
+    camera-orbit="0deg 90deg 200m"
+    min-camera-orbit="-720deg 0deg 200m"
+    max-camera-orbit="720deg 90deg 200m"
+    min-field-of-view="30deg"
+    max-field-of-view="30deg"
+    disable-zoom
+    shadow-intensity="1"
+    environment-image="/projects/model6/model6.hdr">
+
+    <button slot="ar-button" class="ar-button">
+        <img src="../augmented reality logo.gif">
+    </button>
+
+</model-viewer>
+
+
+
+    <div class="experience-box" id="experienceBox">
+        <img src="experience1.jpg" alt="AR Experience" class="thumbnail">
+    </div>
+
+    <div class="bottom-left">
+      <h1>EDP HEADQUARTERS</h1>
+      <p>Aires Mateus </p>
+      <p1>Lisboa, Portugal</p1>
+  </div>
+
+  <button class="toggle-button">▲</button>
+
+<div class="hidden-box" id="hiddenBox">
+    <p>This is the hidden content!</p>
+</div>
+
+    
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

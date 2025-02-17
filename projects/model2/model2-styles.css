@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Vina+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to top, rgb(255, 255, 255) 35%, rgba(87, 27, 9, 0.836));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+}
+model-viewer {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/*TÍTULO */
+.title {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleY(1.5);
+    margin: 0;
+    font-size: 15vw; /* Adjust this value for better scaling */
+    font-family: 'Vina Sans', sans-serif;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: linear-gradient(rgb(255, 255, 255) 80%, transparent 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+/* Animation for fading in from bottom */
+animation: fadeInBottom 1s ease-out forwards; /* Adjust timing as needed */
+}
+@keyframes fadeInBottom {
+    0% {
+        transform: translate(-50%, 100%) scaleY(1.5); /* Start from bottom */
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scaleY(1.5); /* End at center */
+        opacity: 1;
+    }
+}
+
+/* LOGO - VOLTA MAIN PAGE*/
+.back-button {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 1;
+    width: 70px;
+    height: auto;
+}
+
+/* MENU LATERAL*/
+.menu {
+    position: fixed;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+  }
+  .dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .dot.selected {
+    background-color: rgba(0, 0, 0);
+  }
+  .dot-label {
+    position: absolute;
+    left: 35px;
+    opacity: 0;
+    white-space: nowrap;
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(0, 0, 0);
+    border-radius: 0px;
+    font-size: 17px;
+    font-family: 'Bodoni Moda', sans-serif;
+    transform: translateX(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .menu-item:hover .dot-label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+/* BOTÃO REALIDADE AUMENTADA*/
+  .ar-button {
+    position: fixed;
+    bottom: 100px;
+    left: 50px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .ar-button img {
+    width: 50px;
+    height: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+/* Experience Box (Thumbnail) */
+.experience-box {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 300px; /* Adjust size */
+    height: 200px; /* Adjust size */
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.7); /* Dark background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; /* Show pointer on hover */
+    border: 5px solid #fff; /* White border */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  /* Image inside the experience box */
+  .experience-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Overlay (when expanded) */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8); /* Dark background */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure the overlay is on top */
+  }
+  

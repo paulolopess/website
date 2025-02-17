@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Vina+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Source+Sans+Pro:wght@300;400;700&display=swap');
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to top, rgb(255, 255, 255) 35%, rgba(33, 140, 148, 0.712));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+model-viewer {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/*TÍTULO */
+.title {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleY(1.5);
+    margin: 0;
+    font-size: 20vw; /* Adjust this value for better scaling */
+    font-family: 'Vina Sans', sans-serif;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: linear-gradient(rgb(255, 255, 255) 80%, transparent 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Animation for fading in from bottom */
+    animation: fadeInBottom 1s ease-out forwards; /* Adjust timing as needed */
+}
+
+@keyframes fadeInBottom {
+    0% {
+        transform: translate(-50%, 30%) scaleY(1.5); /* Start from 30% */
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scaleY(1.5); /* End at center */
+        opacity: 1;
+    }
+}
+
+/* LOGO - VOLTA MAIN PAGE*/
+.back-button {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 1;
+    width: 70px; /* Adjust logo size */
+    height: auto;
+}
+
+/* BOTÃO REALIDADE AUMENTADA */
+.ar-button {
+    position: fixed;
+    bottom: 100px;
+    left: 50px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+.ar-button img {
+    width: 50px;
+    height: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+
+
+/* Experience Box (Thumbnail) */
+.experience-box {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 200px; /* Adjust size */
+    height: 120px; /* Adjust size */
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.7); /* Dark background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; /* Show pointer on hover */
+    border: 5px solid #fff; /* White border */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    display: none;
+}
+
+/* Image inside the experience box */
+.experience-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+/* DESCRIÇÃO */
+.bottom-left {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 1;
+    text-align: left;
+    display: none;
+  } 
+  .bottom-left h1 {
+    margin: 0;
+    font-size: 60px;
+    font-family: 'Anton', sans-serif; /* Bold, strong font for title */
+    color: rgba(0, 0, 0, 1);
+  }
+  .bottom-left p {
+    margin: 0;
+    font-size: 20px;
+    font-family: 'Source Sans Pro', sans-serif; /* Sleek, readable font for text */
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  .bottom-left p1 {
+    margin: 0;
+    font-size: 17px;
+    font-family: 'Source Sans Pro', sans-serif; /* Sleek, readable font for text */
+    font-weight: 00;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+
+  /* Button styling */
+.toggle-button {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease-in-out;
+    z-index: 3;
+  }
+  
+  .toggle-button:hover {
+    background-color: #ffffffb6;
+  } 

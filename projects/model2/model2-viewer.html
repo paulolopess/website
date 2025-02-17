@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> GLIMPSE</title>
+    <link rel="stylesheet" href="/projects/model2/model2-styles.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+
+<body>
+    <h1 class="title">KRYSSET CHAIR</h1>
+
+    <a href="../../index.html" class="back-button">
+        <img src="../../LOGO.png" alt="Back" style="width: 70px; height: auto;">
+      </a>
+
+      <model-viewer id="viewer"
+    src="/projects/model2/model2.gltf"
+    vr
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    camera-controls
+    auto-rotate
+    camera-orbit="90deg 90deg 2.5m"
+    min-camera-orbit="-720deg 0deg 2.5m"
+    max-camera-orbit="720deg 90deg 2.5m"
+    min-field-of-view="30deg"
+    max-field-of-view="30deg"
+    disable-zoom
+    shadow-intensity="1"
+    environment-image="/projects/model6/model6.hdr">
+    <button slot="ar-button" class="ar-button">
+        <img src="../augmented reality logo.gif">
+    </button>
+
+    </model-viewer>
+
+
+    <div class="menu">
+        <div class="menu-item" onmouseover="showText(0)" onmouseout="hideText(0)">
+          <div class="dot selected" onclick="selectDot(0)"></div>
+          <span class="dot-label">Model</span>
+        </div>
+        <div class="menu-item" onmouseover="showText(1)" onmouseout="hideText(1)">
+          <div class="dot" onclick="selectDot(1)"></div>
+          <span class="dot-label">Info</span>
+        </div>
+        <div class="menu-item" onmouseover="showText(2)" onmouseout="hideText(2)">
+          <div class="dot" onclick="selectDot(2)"></div>
+          <span class="dot-label">Experiences</span>
+        </div>
+      </div>
+
+    
+    <!-- Experience Box (Thumbnail) -->
+<div class="experience-box" id="experienceBox">
+    <img src="experience1.jpeg" alt="AR Experience" class="thumbnail">
+  </div> 
+
+</body>
+
+</html>
