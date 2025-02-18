@@ -3,62 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> GLIMPSE</title>
-    <link rel="stylesheet" href="/projects/model2/model2-styles.css">
+    <title>GLIMPSE</title>
+    <link rel="stylesheet" href="/projects/model6/model6-styles.css">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
 </head>
 
 <body>
-    <h1 class="title">KRYSSET CHAIR</h1>
 
-    <a href="../../index.html" class="back-button">
-        <img src="../../LOGO.png" alt="Back" style="width: 70px; height: auto;">
-      </a>
+<!--QR CODE SÓ FUNCIONA QUANDO TIVER DOMAIN
 
-      <model-viewer id="viewer"
-    src="/projects/model2/model2.gltf"
+ <div id="qrcode"></div>
+<script>
+    window.onload = function() {
+        console.log("QRCode:", typeof QRCode); // Deve mostrar 'function'
+
+        if (typeof QRCode === "function") {
+            new QRCode(document.getElementById("qrcode"), {
+                text: "http://192.168.1.235:5500/projects/model6/model6-viewer.html",
+                width: 128,
+                height: 128
+            });
+        } else {
+            console.error("QRCode.js não carregou corretamente!");
+        }
+    };
+</script>
+<style>
+  #qrcode {
+      position: fixed; /* Keeps the QR code fixed in one position on the screen */
+      top: 20px; /* You can adjust this value */
+      right: 50%; /* You can adjust this value */
+      z-index: 10; /* Ensure it's on top of other elements */
+  }
+</style> -->
+
+
+
+<h1 class="title">GF CHAIR</h1>
+<a href="../../index.html" class="back-button">
+  <img src="../../main page/LOGO.png" alt="Back" style="width: 70px; height: auto;">
+</a>
+
+<model-viewer id="viewer"
+    src="/projects/model6/model6.gltf"
     vr
     ar
     ar-modes="webxr scene-viewer quick-look"
     camera-controls
-    auto-rotate
-    camera-orbit="90deg 90deg 2.5m"
-    min-camera-orbit="-720deg 0deg 2.5m"
-    max-camera-orbit="720deg 90deg 2.5m"
+    camera-orbit="0deg 90deg 70m"
+    min-camera-orbit="-720deg 70deg 70m"
+    max-camera-orbit="720deg 90deg 70m"
     min-field-of-view="30deg"
     max-field-of-view="30deg"
     disable-zoom
+    disable-pan
     shadow-intensity="1"
     environment-image="/projects/model6/model6.hdr">
+
     <button slot="ar-button" class="ar-button">
         <img src="../augmented reality logo.gif">
     </button>
 
-    </model-viewer>
+</model-viewer>
 
 
-    <div class="menu">
-        <div class="menu-item" onmouseover="showText(0)" onmouseout="hideText(0)">
-          <div class="dot selected" onclick="selectDot(0)"></div>
-          <span class="dot-label">Model</span>
-        </div>
-        <div class="menu-item" onmouseover="showText(1)" onmouseout="hideText(1)">
-          <div class="dot" onclick="selectDot(1)"></div>
-          <span class="dot-label">Info</span>
-        </div>
-        <div class="menu-item" onmouseover="showText(2)" onmouseout="hideText(2)">
-          <div class="dot" onclick="selectDot(2)"></div>
-          <span class="dot-label">Experiences</span>
-        </div>
-      </div>
+<!-- SETA MAIS INFORMAÇÕES -->
+<div class="wrap">
+  <span class="arrow left">
+    <span></span>
+    <span></span>
+  </span>
+</div>
 
-    
-    <!-- Experience Box (Thumbnail) -->
-<div class="experience-box" id="experienceBox">
-    <img src="experience1.jpeg" alt="AR Experience" class="thumbnail">
-  </div> 
+
+<!-- GALERIA IMAGENS -->
+<div class="gallery">
+    <div class="gallery-items">
+      <div class="gallery-item"><img src="./IMG/1.jpg"></div>
+      <div class="gallery-item"><img src="./IMG/2.jpg"></div>
+      <div class="gallery-item"><img src="./IMG/3.jpg"></div>
+      <div class="gallery-item"><img src="./IMG/4.jpg"></div>
+      <div class="gallery-item"><img src="./IMG/5.jpg"></div>
+    </div>
+</div>
+
+
+<!-- DESCRIÇÃO -->
+    <div class="bottom-left">
+      <h1>GF<br>CHAIR</h1>
+      <p>GONÇALO FERNANDES </p>
+      <p1>VISEU | PORTUGAL</p1>
+</div>
+
+
+<script src="script.js"></script>
 
 </body>
-
 </html>
