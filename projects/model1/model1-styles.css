@@ -8,7 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to top, rgb(230, 230, 230) 35%, rgba(33, 140, 148, 0.712));
+    background: linear-gradient(to top, rgb(255, 255, 255) 35%, rgba(190, 137, 38, 0.712));
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
