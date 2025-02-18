@@ -8,11 +8,10 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to top, rgb(255, 255, 255) 35%, rgba(190, 137, 38, 0.712));
+    background: linear-gradient(to top, rgb(230, 230, 230) 35%, rgba(33, 140, 148, 0.712));
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: white;
     text-align: center;
     overflow: hidden;
 }
@@ -23,35 +22,44 @@ model-viewer {
     z-index: 0;
 }
 
-/*TÍTULO */
+/* TÍTULO */
 .title {
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%) scaleY(1.5);
-    margin: 0;
-    font-size: 20vw; /* Adjust this value for better scaling */
-    font-family: 'Vina Sans', sans-serif;
-    text-transform: uppercase;
-    white-space: nowrap;
-    background: linear-gradient(rgb(255, 255, 255) 10%, transparent 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    /* Animation for fading in from bottom */
-    animation: fadeInBottom 1s ease-out forwards; /* Adjust timing as needed */
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%) scaleY(2);
+  margin: 0;
+  font-size: 40vh; /* Adjust this value for better scaling */
+  font-family: 'Vina Sans', sans-serif;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: linear-gradient(rgb(230, 230, 230) 10%, transparent 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeInBottom 1s ease-out forwards; /* Initial animation */
 }
 
 @keyframes fadeInBottom {
-    0% {
-        transform: translate(-50%, 30%) scaleY(1.5); /* Start from 30% */
-        opacity: 0;
-    }
-    100% {
-        transform: translate(-50%, -50%) scaleY(1.5); /* End at center */
-        opacity: 1;
-    }
+  0% {
+      transform: translate(-50%, 30%) scaleY(1.5); /* Start from 30% */
+      opacity: 0;
+  }
+  100% {
+      transform: translate(-50%, -50%) scaleY(1.5); /* End at center */
+      opacity: 1;
+  }
+}
+
+@keyframes fadeOutTop {
+  0% {
+      transform: translate(-50%, -50%) scaleY(1.5); /* Start at center */
+      opacity: 1;
+  }
+  100% {
+      transform: translate(-50%, 30%) scaleY(1.5); /* End at 30% */
+      opacity: 0;
+  }
 }
 
 /* LOGO - VOLTA MAIN PAGE*/
@@ -81,60 +89,56 @@ model-viewer {
 }
 
 
-
-/* Experience Box (Thumbnail) */
-.experience-box {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 300px; /* Adjust size */
-    height: 200px; /* Adjust size */
-    border-radius: 10px;
-    overflow: hidden;
-    background: rgba(0, 0, 0, 0.7); /* Dark background */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer; /* Show pointer on hover */
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: none;
-}
-
-/* Image inside the experience box */
-.experience-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.3s ease;
-}
-
 /* DESCRIÇÃO */
 .bottom-left {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
-    z-index: 1;
-    text-align: left;
-    display: none;
-  } 
-  .bottom-left h1 {
-    margin: 0;
-    font-size: 50px;
-    font-family: 'Anton', sans-serif; /* Bold, strong font for title */
-    color: rgba(0, 0, 0, 1);
+  position: fixed;
+  bottom: 52px;
+  left: 30px;
+  z-index: 1;
+  text-align: left;
+  display: none; /* Keep it hidden initially */
+  opacity: 0; /* Make it initially invisible */
+  animation: fadeInUp 0.5s ease-out forwards; /* Apply fade-in and scale-up animation */
+}
+
+.bottom-left h1 {
+  margin: 0;
+  font-size: 80px;
+  font-family: 'Anton', sans-serif; /* Bold, strong font for title */
+  color: rgba(0, 0, 0, 1);
+  line-height: 1;
+}
+
+.bottom-left p {
+  margin: 0;
+  font-size: 30px;
+  font-family: 'Vina Sans', sans-serif;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.bottom-left p1 {
+  margin: 0;
+  font-size: 20px;
+  font-family: 'Vina Sans', sans-serif;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* Animation for fade-in and fade-out */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  .bottom-left p {
-    margin: 0;
-    font-size: 20px;
-    font-family: 'Vina Sans', sans-serif;
-    color: rgba(0, 0, 0, 0.5);
+  50% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  .bottom-left p1 {
-    margin: 0;
-    font-size: 15px;
-    font-family: 'Vina Sans', sans-serif;
-    color: rgba(0, 0, 0, 0.5);
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
   }
+}
+
 
 
 
@@ -299,6 +303,8 @@ model-viewer {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
   max-height: 200px; /* Max height for individual items */
+  opacity: 0; /* Make items initially invisible */
+  animation: fadeInUp 0.5s ease-out forwards; /* Apply fade-in and scale-up animation */
 }
 
 /* Image styles */
@@ -309,6 +315,19 @@ model-viewer {
   object-fit: cover; /* Ensure images cover their containers */
   display: block;
   transition: transform 0.3s ease;
+  border-radius: 8px; /* Keep rounded corners consistent */
+}
+
+/* Animation for fading and scaling */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Hover effects */
@@ -318,13 +337,5 @@ model-viewer {
 
 .gallery-item img:hover {
   transform: scale(1.1);
+  opacity: 0.85; /* Slight fade on hover */
 }
-
-
-
-
-
-
-
-
-
