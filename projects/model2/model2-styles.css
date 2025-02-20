@@ -8,7 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to top, rgb(255, 255, 255) 35%, rgba(190, 137, 38, 0.712));
+    background: linear-gradient(to top, rgb(230, 230, 230) 35%, rgba(33, 140, 148, 0.712));
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -33,7 +33,7 @@ model-viewer {
   font-family: 'Vina Sans', sans-serif;
   text-transform: uppercase;
   white-space: nowrap;
-  background: linear-gradient(rgb(230, 230, 230) 10%, transparent 100%);
+  background: linear-gradient(rgb(255, 255, 255) 30%, transparent 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
