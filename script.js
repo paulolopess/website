@@ -13,9 +13,11 @@ function toggleMenu() {
         this.pause();
         this.currentTime = 0; // Reset to the first frame
     });
-  });
+});
   
-// Step 1: Get DOM elements
+
+
+// CAROUSEL
 let nextDom = document.getElementById('next');
 let prevDom = document.getElementById('prev');
 
@@ -107,7 +109,7 @@ setTimeout(autoNext, timeAutoNext);
 
 
 
-
+// LUPA
 const searchContainer = document.getElementById("searchBox");
 const searchIcon = document.getElementById("searchIcon");
 
