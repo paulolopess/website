@@ -4,32 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GLIMPSE</title>
-    <link rel="stylesheet" href="/projects/model3/model3-styles.css">
+    <link rel="stylesheet" href="model3-styles.css">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
 </head>
 
 <body>
-    <h1 class="title">EDP</h1>
 
-    <a href="../../index.html" class="back-button">
-        <img src="../../LOGO.png" alt="Back" style="width: 70px; height: auto;">
-    </a>
+<!--QR CODE SÓ FUNCIONA QUANDO TIVER DOMAIN
 
-    <model-viewer id="viewer"
-    src="/projects/model3/model3.gltf"
+ <div id="qrcode"></div>
+<script>
+    window.onload = function() {
+        console.log("QRCode:", typeof QRCode); // Deve mostrar 'function'
+
+        if (typeof QRCode === "function") {
+            new QRCode(document.getElementById("qrcode"), {
+                text: "http://192.168.1.235:5500/projects/model6/model6-viewer.html",
+                width: 128,
+                height: 128
+            });
+        } else {
+            console.error("QRCode.js não carregou corretamente!");
+        }
+    };
+</script>
+<style>
+  #qrcode {
+      position: fixed; /* Keeps the QR code fixed in one position on the screen */
+      top: 20px; /* You can adjust this value */
+      right: 50%; /* You can adjust this value */
+      z-index: 10; /* Ensure it's on top of other elements */
+  }
+</style> -->
+
+
+
+<h1 class="title">EDP HEADQUARTERS</h1>
+<a href="../../index.html" class="back-button">
+  <img src="../../main page/LOGO.png" alt="Back" style="width: 70px; height: auto;">
+</a>
+
+<model-viewer id="viewer"
+    src="model3.gltf"
     vr
     ar
     ar-modes="webxr scene-viewer quick-look"
     camera-controls
-    camera-orbit="0deg 90deg 200m"
-    min-camera-orbit="-720deg 0deg 200m"
-    max-camera-orbit="720deg 90deg 200m"
+    camera-orbit="0deg 90deg 250m"
+    min-camera-orbit="-720deg 70deg 250m"
+    max-camera-orbit="720deg 90deg 250m"
     min-field-of-view="30deg"
     max-field-of-view="30deg"
     disable-zoom
+    disable-pan
     shadow-intensity="1"
-    environment-image="/projects/model6/model6.hdr">
+    environment-image="model3.hdr">
 
     <button slot="ar-button" class="ar-button">
         <img src="../augmented reality logo.gif">
@@ -38,27 +69,36 @@
 </model-viewer>
 
 
-
-    <div class="experience-box" id="experienceBox">
-        <img src="experience1.jpg" alt="AR Experience" class="thumbnail">
-    </div>
-
-    <div class="bottom-left">
-      <h1>EDP HEADQUARTERS</h1>
-      <p>Aires Mateus </p>
-      <p1>Lisboa, Portugal</p1>
-  </div>
-
-  <button class="toggle-button">▲</button>
-
-<div class="hidden-box" id="hiddenBox">
-    <p>This is the hidden content!</p>
+<!-- SETA MAIS INFORMAÇÕES -->
+<div class="wrap">
+  <span class="arrow left">
+    <span></span>
+    <span></span>
+  </span>
 </div>
 
-    
+
+<!-- GALERIA IMAGENS -->
+<div class="gallery">
+    <div class="gallery-items">
+      <div class="gallery-item"><img src="./IMG/1.jpg"></div>
+      <div class="gallery-item"><img src="./IMG/2.jpg"></div>
+      <div class="gallery-item"><img src="./IMG/3.jpg"></div>
+      <div class="gallery-item"><img src="./IMG/4.jpg"></div>
+      <div class="gallery-item"><img src="./IMG/5.jpg"></div>
+    </div>
+</div>
 
 
-    <script src="script.js"></script>
+<!-- DESCRIÇÃO -->
+    <div class="bottom-left">
+      <h1>EDP<br>HEADQUARTERS</h1>
+      <p>AIRES MATEUS </p>
+      <p1>LISBOA | PORTUGAL</p1>
+</div>
+
+
+<script src="script.js"></script>
+
 </body>
-
 </html>

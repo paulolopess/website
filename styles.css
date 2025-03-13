@@ -1,20 +1,80 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Source+Sans+Pro:wght@300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Vina+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap');
 
 body {
   width: 100vw; /* Garante que ocupe toda a largura da tela */
-  height: 200vh;
+  height: 650vh;
   margin: 0;
   overflow-x: hidden; /* Evita rolagem horizontal */
-  background-color: black;
+  background-color: rgb(0, 0, 0);
+  z-index: 1;
 }
 
-/* LOGO */
+
+/*------------------ INTRO / END ------------------------------------------------------------*/
+/* Keep the logo fixed in the background */
+.intro {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.intro img {
+  width: 100%;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 10s ease-in-out; /* Fade-in effect */
+}
+
+.intro img.fade-in {
+  opacity: 1; /* Make the logo visible when the class is added */
+}
+
+/* Content section */
+.content {
+  opacity: 0;
+  visibility: hidden;
+  color: black;
+  background-color: rgb(230, 230, 230);
+  height: 100vh;
+  text-align: center;
+  padding-top: 20px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.show-content {
+  opacity: 1;
+  visibility: visible;
+}
+
+#logo {
+  transform-origin: center center; /* Ensure the logo scales from the center */
+  transition: transform 0.2s ease-out; /* Optional: adds smooth scaling */
+}
+
+.fade-white {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(230, 230, 230);
+  opacity: 0; /* Initially invisible */
+  transition: opacity 0.5s ease-in-out; /* Smooth fade transition */
+  pointer-events: none; /* Make sure it doesn't interfere with other interactions */
+  z-index: 10;
+}
+
+/*------------------ LOGO ------------------------------------------------------------*/
 .logo-container {
-  position: absolute;
+  position: fixed;
   top: 30px;
   left: 30px;
-  z-index: 10;
+  z-index: 50;
 }
 .logo {
   width: 70px;
@@ -22,442 +82,93 @@ body {
 }
 
 
-/* LUPA */
-.search-container {
-  position: absolute;
-  top: 20px;  /* Adjust distance from top */
-  right: 20px;  /* Adjust distance from left */
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  transition: width 0.4s ease-in-out;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  z-index: 100;
+/*------------------ SCROLL DOWN ------------------------------------------------------------*/
+@keyframes scroll_2 {
+  0%   { transform: translateY(0); opacity: 1; }
+  25%  { opacity: 1; }
+  75%  { transform: translateY(.75em); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
 }
 
-.search-container input {
-  width: 100%;
-  border: none;
-  outline: none;
-  padding: 10px;
-  font-size: 16px;
-  opacity: 0;
-  transform: translateX(20px);
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.5; }
 }
 
-.search-container .icon {
-  position: absolute;
+.scroll-icon {
+  position: fixed;
+  bottom: 2%;
   left: 50%;
   transform: translateX(-50%);
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
-  stroke: #000000;
-  fill: none;
-  transition: left 0.4s ease-in-out;
+  height: 2em;
+  width: 1em;
+  border: 1px solid #777777;
+  border-radius: 1em;
+  z-index: 20;
+  opacity: .5;
+  animation: pulse 2s infinite ease-in-out;
 }
 
-.search-container.active {
-  width: 200px;
-}
-
-.search-container.active input {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.search-container.active .icon {
-  left: 20px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.carousel {
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
-
-.carousel::before {
-  content: '';
+.scroll-icon__dot {
+  display: block;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(255, 0, 0, 0)); 
-  z-index: 2; /* Gradient is behind buttons but on top of the carousel items */
-}
-
-.carousel .list .item {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  box-shadow: inset 0px -100px 100px -50px rgba(0, 0, 0, 0.8);
-}
-
-.carousel .list .item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.carousel .list .item .content {
-  position: absolute;
-  top: 35%;
-  left: 37%;
-  transform: translateX(-50%);
-  width: 100%; 
-  max-width: 80%;
-  padding: 0 5%;
-  box-sizing: border-box;
-  color: #000000;
-  text-align: left;
-  text-shadow: 2px 4px 5px rgba(0, 0, 0, .3);
-}
-
-.carousel .list .item .type {
-  font-size: 2em;
-  letter-spacing: 1px;
-  font-family: 'Vina Sans', sans-serif;
-  color: #000000;
-}
-
-.carousel .list .item .title {
-  font-size: 7em;
-  font-weight: bold;
-  line-height: 1em;
-  font-family: "Anton", sans-serif;
-  letter-spacing: 3px;
-  color: #000000;
-}
-
-.carousel .list .item .buttons {
-  display: relative;
-  grid-template-columns: repeat(2, 200px);
-  grid-template-rows: 40px;
-  gap: 5px;
-  margin-top: 10px;
-  position: relative;
-  z-index: 10; /* Ensure buttons are on top */
-}
-
-.carousel .list .item .buttons button {
-  border: none;
-  outline: 2px solid rgba(0, 0, 0);
-  background-color: rgba(255, 255, 255, 0);
-  font-family: 'Vina Sans', sans-serif;
-  font-size: 1.1em;
-  color: #000000;
-  border-radius: 20px;
-  letter-spacing: .5px; 
-  padding: 10px 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-  z-index: 100; /* Ensures buttons are above the gradient */
-}
-
-.carousel .list .item .buttons button:hover {
-  transition: background-color 0.5s ease, color 0.3s ease; /* Smooth transition */
-  background-color: rgba(255, 255, 255, .3);
-}
-
-/* thumbail */
-.thumbnail{
-  position: absolute;
-  top: 67%;
-  left: 55%;
-  width: max-content;
-  z-index: 100;
-  display: flex;
-  gap: 15px;
-}
-.thumbnail .item{
-  width: 150px;
-  height: 220px;
-  flex-shrink: 0;
-  position: relative;
-}
-.thumbnail .item img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
-  outline: 1px solid rgba(0, 0, 0);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, .8); /* Adding a soft shadow */
-}
-.thumbnail .item .content{
-  color: #ffffff;
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-}
-
-/* arrows */
-.arrows{
-  position: absolute;
-  top: 87%;
   left: 50%;
-  z-index: 100;
-  width: 300px;
-  max-width: 30%;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.arrows button{
-  font-size: 2em;
-  outline: 2px solid rgb(0, 0, 0);
-  width: 40px;
-  height: 40px;
+  background: #777777;
+  height: .5em;
+  width: .5em;
+  top: .6em;
+  margin-left: -.25em;
   border-radius: 50%;
-  background-color: rgb(0, 0, 0);
-  border: none;
-  color: #ffffff;
-  font-family: monospace;
-  font-weight: bold;
-  transition: .5s;
-  z-index: 100;
-}
-.arrows button:hover{
-  background-color: rgba(255, 255, 255, .2);
-  transition: background-color 0.5s ease, color 0.3s ease;
+  transform-origin: top center;
+  backface-visibility: hidden;
+  animation: scroll_2 2s ease-out infinite;
 }
 
-/* animation */
-.carousel .list .item:nth-child(1){
-  z-index: 1;
-}
 
-/* animation text in first item */
-
-.carousel .list .item:nth-child(1) .content .type,
-.carousel .list .item:nth-child(1) .content .title,
-.carousel .list .item:nth-child(1) .content .topic,
-.carousel .list .item:nth-child(1) .content .des,
-.carousel .list .item:nth-child(1) .content .buttons
-{
-  transform: translateY(50px);
-  filter: blur(20px);
-  opacity: 0;
-  animation: showContent .5s 1s linear 1 forwards;
-}
-@keyframes showContent{
-  to{
-      transform: translateY(0px);
-      filter: blur(0px);
-      opacity: 1;
-  }
-}
-.carousel .list .item:nth-child(1) .content .title{
-  animation-delay: 0.2s!important;
-}
-.carousel .list .item:nth-child(1) .content .topic{
-  animation-delay: 0.4s!important;
-}
-.carousel .list .item:nth-child(1) .content .des{
-  animation-delay: 0.6s!important;
-}
-.carousel .list .item:nth-child(1) .content .buttons{
-  animation-delay: 0.8s!important;
-}
-/* create animation when next click */
-.carousel.next .list .item:nth-child(1) img {
-  animation: inFrame 0.8s linear 1 forwards;
+/*------------------ TEXTO INTERMÉDIO ------------------------------------------------------------*/
+.text-line1, .text-line2 {
   position: absolute;
-  bottom: 81px;
-  left: 55%;
-  width: 150px;
-  height: 220px;
-  border-radius: 20px;
+  font-family: 'Vina Sans', sans-serif;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Smooth transition */
 }
 
-@keyframes inFrame {
-  0% {
-    width: 150px;
-    height: 220px;
-    bottom: 81px;
-    left: 55%;
-    border-radius: 20px;
-  }
-  100% {
-    width: 100%;
-    height: 100%;
-    bottom: 0;
-    left: 0;
-    border-radius: 0;
-  }
+/* Text-line1 specific styles */
+.text-line1 {
+  top: 230vh; /* Adjust vertical position */
+  left: 50%; /* Center horizontally */
+  font-size: 2vw;
+  color: #000000;
+  transform: translateY(30px); /* Start from below (move up from 30px below) */
+  transition-delay: 0.2s; /* Delay before starting animation */
+  transform: translateX(-50%); /* Center horizontally */
+  z-index: 900;
 }
 
-.carousel.next .thumbnail .item:nth-last-child(1){
-  overflow: hidden;
-  animation: showThumbnail .5s linear 1 forwards;
-}
-.carousel.prev .list .item img{
-  z-index: 100;
-}
-@keyframes showThumbnail{
-  from{
-      width: 0;
-      opacity: 0;
-  }
-}
-.carousel.next .thumbnail{
-  animation: effectNext .5s linear 1 forwards;
+/* Text-line2 specific styles */
+.text-line2 {
+  font-family: "Anton", sans-serif;
+  top: 240vh; /* Adjust vertical positioning */
+  left: 50%; /* Centers based on the viewport */
+  transform: translateX(-50%) translateY(30px); /* Start from below with offset for animation */
+  font-size: 5vw;
+  color: #000000;
+  text-align: center;
+  width: 85vw; /* Ensures it adapts to text length */
+  transition-delay: 0.5s; /* Delay before starting animation */
+  z-index: 900;
 }
 
-@keyframes effectNext{
-  from{
-      transform: translateX(150px);
-  }
-}
-
-/* prev click */
-
-.carousel.prev .list .item:nth-child(2){
-  z-index: 2;
-}
-
-.carousel.prev .list .item:nth-child(2) img{
-  animation: outFrame 0.5s linear 1 forwards;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-@keyframes outFrame{
-  0% {
-      width: 100%;
-      height: 100%;
-      bottom: 0;
-      left: 0;
-      border-radius: 0;
-  }
-  100% {
-      width: 150px;
-      height: 220px;
-      bottom: 81px;
-      left: 55%;
-      border-radius: 20px;
-  }
-}
-
-.carousel.prev .thumbnail .item:nth-child(1){
-  overflow: hidden;
-  opacity: 0;
-  animation: showThumbnail .5s linear 1 forwards;
-}
-.carousel.next .arrows button,
-.carousel.prev .arrows button{
-  pointer-events: none;
-}
-.carousel.prev .list .item:nth-child(2) .content .type,
-.carousel.prev .list .item:nth-child(2) .content .title,
-.carousel.prev .list .item:nth-child(2) .content .topic,
-.carousel.prev .list .item:nth-child(2) .content .des,
-.carousel.prev .list .item:nth-child(2) .content .buttons
-{
-  animation: contentOut 1.5s linear 1 forwards!important;
-}
-
-@keyframes contentOut{
-  0% {
-      transform: translateY(0px);
-      filter: blur(0px);
-      opacity: 1;
-  }
-  100% {
-      transform: translateY(50px); /* Match 'next' */
-      filter: blur(20px);
-      opacity: 0;
-  }
-}
-@media screen and (max-width: 678px) {
-  .carousel .list .item .content{
-      padding-right: 0;
-  }
-  .carousel .list .item .content .title{
-      font-size: 30px;
-  }
-}
-
-.thumbnail .item:nth-child(3) {
-  opacity: 0.8; /* Most visible of the fading items */
-  transition: opacity 0.5s ease-in-out;
-}
-
-.thumbnail .item:nth-child(4) {
-  opacity: 0.5; /* Medium fade */
-  transition: opacity 0.5s ease-in-out;
-}
-
-.thumbnail .item:nth-child(5) {
-  opacity: 0.1; /* Almost invisible */
-  transition: opacity 0.5s ease-in-out;
-}
-
-.thumbnail .item:nth-child(6) {
-  opacity: 0; /* Fully hidden */
-  transition: opacity 0.5s ease-in-out;
-}
-
-/* Adjust opacity when transitioning */
-.carousel.next .thumbnail .item:nth-child(3),
-.carousel.prev .thumbnail .item:nth-child(3) {
-  opacity: 0.7;
-}
-
-.carousel.next .thumbnail .item:nth-child(4),
-.carousel.prev .thumbnail .item:nth-child(4) {
-  opacity: 0.4;
-}
-
-.carousel.next .thumbnail .item:nth-child(5),
-.carousel.prev .thumbnail .item:nth-child(5) {
-  opacity: 0;
-}
-
-.carousel.next .thumbnail .item:nth-child(6),
-.carousel.prev .thumbnail .item:nth-child(6) {
-  opacity: 0; /* Stays hidden */
+/* Animation for when the text is visible */
+.text-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0); /* Reset the translate offset to move up */
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Wrapper para todos os serviços */
+/*------------------ SERVIÇOS ------------------------------------------------------------*/
+/* Container dos serviços */
 .services-container {
   position: absolute;
   display: flex;
@@ -465,53 +176,92 @@ body {
   justify-content: space-between;
   width: 100%;
   gap: 20px;
-  top: 110vh;
+  top: 290vh;
+  opacity: 0; /* Inicialmente invisível */
+  transform: translateY(30px); /* Inicia um pouco abaixo */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Transição suave para aparecer */
+  z-index: 10;
 }
 
+/* Torna os serviços visíveis quando a classe 'services-visible' é adicionada */
+.services-visible {
+  opacity: 1; /* Torna visível */
+  transform: translateY(0); /* Move para a posição normal */
+}
+
+/* Estilos dos itens de serviço */
 .service-item {
   display: flex;
   flex-direction: column;
   flex: 1;
   min-width: 250px;
   position: relative;
-  transition: transform 0.3s ease-in-out; /* Smooth transition for size change */
+  transition: transform 0.3s ease-in-out; /* Transição suave para mudança de tamanho */
 }
 
+/* Container de vídeo */
 .video-container {
   width: 100%;
-  height: 40vh;
+  height: 70vh;
   overflow: hidden;
   position: relative;
-  transition: transform 0.3s ease-in-out; /* Smooth scaling transition */
+  transition: transform 0.3s ease-in-out; /* Transição suave para o efeito de escala */
 }
 
-/* Add the size-up effect on hover */
+/* Efeito de aumento no hover do vídeo */
 .video-container:hover {
-  transform: scale(1.05); /* Slightly enlarge the video container */
+  transform: scale(1.02); /* Leve aumento do container */
 }
 
+/* Vídeo dentro do container */
 video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 100;
 }
 
-/* Overlay effect */
-.overlay {
+/* Sobreposição do vídeo (overlay) */
+.video-container .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0); /* Fundo transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  opacity: 1;  /* Opacidade total */
+  z-index: 50;
+}
+
+/* Estilo do texto H1 na sobreposição */
+.video-container .overlay h1 {
+  font-size: 3em;  /* Tamanho do texto */
+  font-weight: bold;
+}
+
+/* Sobreposição do item de serviço */
+.service-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9); /* Dark transparent rectangle */
+  background: rgba(255, 255, 255, 0.9); /* Fundo semi-transparente */
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+  z-index: 100;
 }
 
-.overlay h1 {
-  color: rgb(255, 255, 255);
+/* Estilo do texto dentro da sobreposição */
+.service-overlay h1 {
+  color: rgb(0, 0, 0);
   font-size: 3em;
   text-align: center;
   transition: transform 0.6s ease-in-out;
@@ -519,22 +269,24 @@ video {
   letter-spacing: 2px;
 }
 
-/* Hover effect */
-.video-container:hover .overlay {
-  opacity: 0; /* Hide the overlay */
+/* Efeito no hover do vídeo */
+.video-container:hover .service-overlay {
+  opacity: 0; /* Torna a sobreposição invisível */
 }
 
-.video-container:hover .overlay h1 {
-  transform: translateY(100%); /* Move the title under the video */
+.video-container:hover .service-overlay h1 {
+  transform: translateY(100%); /* Move o título para baixo do vídeo */
 }
 
+/* Container de texto abaixo do vídeo */
 .text-container {
   width: 100%;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.9);
   text-align: center;
 }
 
+/* Conteúdo de texto */
 .text-content {
   max-width: 800px;
   margin: 0 auto;
@@ -542,17 +294,17 @@ video {
 
 .text-content p {
   font-size: 1.2em;
-  color: #555;
+  color: #000000;
 }
 
-/* Responsiveness */
+/* Estilos de responsividade */
 @media (max-width: 768px) {
   .services-container {
-      flex-direction: column;
+      flex-direction: column; /* Alinha os itens de serviço em coluna em telas menores */
   }
 
   .video-container {
-      height: 40vh;
+      height: 40vh; /* Reduz a altura do vídeo em telas menores */
   }
 
   .text-container {
@@ -560,6 +312,67 @@ video {
   }
 }
 
+/* Descrição do serviço */
+.service-item p.service-description {
+  color: #000000;
+  font-size: 1.8em;
+  text-align: center;
+  font-family: 'Anton', sans-serif;
+  max-width: 90%;
+  margin: 50px auto;
+  opacity: 0; /* Inicialmente invisível */
+  transform: translateY(20px); /* Começa um pouco abaixo */
+  transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out; /* Transição suave para aparecer */
+  text-transform: uppercase;
+}
+
+/* Exibir a descrição do serviço ao passar o mouse sobre o container do vídeo */
+.video-container:hover + .service-description {
+  opacity: 1; /* Torna visível */
+  transform: translateY(0); /* Move para a posição normal */
+}
+
+
+
+/*------------------ TEXTO INTERMÉDIO 2------------------------------------------------------------*/
+.text-line3, .text-line4 {
+  position: absolute;
+  font-family: 'Vina Sans', sans-serif;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Smooth transition */
+  z-index: 10;
+}
+
+/* Text-line1 specific styles */
+.text-line3 {
+  top: 390vh; /* Adjust vertical position */
+  left: 50%; /* Center horizontally */
+  font-size: 2vw;
+  color: #000000;
+  transform: translateY(30px); /* Start from below (move up from 30px below) */
+  transition-delay: 0.2s; /* Delay before starting animation */
+  transform: translateX(-50%); /* Center horizontally */
+  z-index: 10;
+}
+
+/* Text-line2 specific styles */
+.text-line4 {
+  font-family: "Anton", sans-serif;
+  top: 400vh; /* Adjust vertical positioning */
+  left: 50%; /* Centers based on the viewport */
+  transform: translateX(-50%) translateY(30px); /* Start from below with offset for animation */
+  font-size: 5vw;
+  color: #000000;
+  text-align: center;
+  width: 85vw; /* Ensures it adapts to text length */
+  transition-delay: 0.5s; /* Delay before starting animation */
+}
+
+/* Animation for when the text is visible */
+.text-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0); /* Reset the translate offset to move up */
+}
 
 
 
@@ -577,18 +390,235 @@ video {
 
 
 
-/* Social Media Icons Style */
+
+
+
+
+
+
+
+
+/*------------------ BARRA FILTRO ------------------------------------------------------------*/
+.filter-bar {
+  text-align: center;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 440vh; /* Adjust as needed */
+  width: 100%;
+  z-index: 101;
+}
+.filter-btn {
+  background: none;
+  border: 1px solid rgba(255, 0, 0, 0);
+  color: rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+  margin: 0 30px; /* Change the gap between the buttons */
+  cursor: pointer;
+  font-size: 1.3em;
+  transition: all 0.3s ease;
+  font-family: 'Quicksand', sans-serif;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: rgba(255, 255, 255, 0);
+  color: rgb(0, 0, 0);
+}
+
+
+/*------------------ IMAGENS ------------------------------------------------------------*/
+.image-grid {
+  display: flex; /* Use flexbox */
+  flex-wrap: wrap; /* Allow wrapping of items */
+  justify-content: flex-start; /* Align items to the left */
+  position: absolute;
+  top: 450vh; /* Adjust top position */
+  z-index: 100;
+  width: 95%; /* Set width to 80% so 10% padding is left on both sides */
+  padding: 10px;
+  margin: 0 auto; /* Center the grid horizontally */
+  left: 7%; /* Add 10% left margin to ensure border space on the left */
+  right: 7%; /* Optional: If you want equal spacing on the right side */
+}
+.image-item {
+  position: relative;
+  width: 260px;  /* Fixed size */
+  height: 260px; /* Fixed size */
+  margin-right: 10px; /* Space between items */
+  margin-bottom: 10px; /* Space between items */
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none; /* Removes default link underline */
+  display: block; /* Make sure items are displayed as blocks initially */
+}
+.image-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.image-item:hover img {
+  transform: scale(1.1);
+}
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgb(230, 230, 230) 35%, rgba(199, 150, 86, 0));
+  color: rgb(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align text to the left */
+  justify-content: flex-end; /* Move text to the bottom */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 3%;
+  gap: 0px;
+}
+.image-item:hover .overlay {
+  opacity: 1;
+}
+.overlay h3 {
+  margin: 0;
+  font-size: 2em;
+  letter-spacing: 1px;
+  font-family: 'Anton', sans-serif;
+  margin-bottom: -20px;
+}
+.overlay p {
+  font-size: 0.9em;
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 0px;
+}
+
+/* Hidden by default */
+.filter-bar, .image-grid {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  visibility: hidden;
+}
+
+/* Visible when scrolled into view */
+.filter-visible {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.grid-visible {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------------ CONTACT ------------------------------------------------------------*/
+.contact-container {
+  position: absolute;
+  width: 500px; /* Set fixed width */
+  max-width: none; /* Remove max-width restriction */
+  height: 440px; /* Set fixed height */
+  bottom: -545vh;
+  left: 20em;
+  transform: translateX(-50%); /* Center the form horizontally */
+  padding: 20px;
+  border-radius: 8px;
+  text-align: left;
+  z-index: 50;
+  background-color: rgba(255, 0, 0, 0); /* Optional: background color for contrast */
+  overflow: hidden; /* Prevent the content from overflowing */
+  resize: none; /* Disable resizing */
+}
+
+.contact-container h2 {
+  font-size: 5em;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  font-family: "Anton", sans-serif;
+  color: #ffffff;
+  text-align: left;
+}
+
+/* Input container style */
+.input-container {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 0;
+  border: 1px solid #dddddd48;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+  color: #ffffff;
+  font-family: 'Quicksand', sans-serif;
+  background-color: rgba(255, 0, 0, 0);
+  transition: border-color 0.3s ease;
+  resize: none; /* Disable resizing */
+}
+
+input:focus, textarea:focus {
+  border-color: #ffffff;
+  outline: none;
+}
+
+/* Send button style */
+.send-button {
+  padding: 10px 10px;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #000000;
+  color: white;
+  font-size: 1em;
+  border: 1px solid #ffffff48;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+  background-color: rgba(255, 255, 255, .3);
+}
+
+
+/*------------------ SOCIAL MEDIA ------------------------------------------------------------*/
 .social-media-container {
   position: absolute;
-  bottom: -97vh;
-  right: 30px;
+  bottom: -545vh;
+  right: 4em;
   display: flex;
-  gap: 15px;  /* Space between icons */
+  gap: 20px;  /* Space between icons */
   z-index: 100;
 }
 
 .social-icon img {
-  width: 2vw;  /* Adjust icon size */
+  width: 45px;  /* Adjust icon size */
   height: auto;
   transition: transform 0.3s ease;  /* Smooth transition */
   outline: 1px solid rgb(255, 255, 255);
@@ -598,12 +628,3 @@ video {
 .social-icon img:hover {
   transform: scale(1.3);  /* Slight zoom on hover */
 }
-
-
-
-
-
-
-
-
-

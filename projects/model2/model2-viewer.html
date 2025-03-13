@@ -12,34 +12,7 @@
 
 <body>
 
-<!--QR CODE SÓ FUNCIONA QUANDO TIVER DOMAIN
-
- <div id="qrcode"></div>
-<script>
-    window.onload = function() {
-        console.log("QRCode:", typeof QRCode); // Deve mostrar 'function'
-
-        if (typeof QRCode === "function") {
-            new QRCode(document.getElementById("qrcode"), {
-                text: "http://192.168.1.235:5500/projects/model6/model6-viewer.html",
-                width: 128,
-                height: 128
-            });
-        } else {
-            console.error("QRCode.js não carregou corretamente!");
-        }
-    };
-</script>
-<style>
-  #qrcode {
-      position: fixed; /* Keeps the QR code fixed in one position on the screen */
-      top: 20px; /* You can adjust this value */
-      right: 50%; /* You can adjust this value */
-      z-index: 10; /* Ensure it's on top of other elements */
-  }
-</style> -->
-
-
+<div class="background-overlay"></div>
 
 <h1 class="title">CANTAREIRA</h1>
 <a href="../../index.html" class="back-button">
@@ -52,9 +25,9 @@
     ar
     ar-modes="webxr scene-viewer quick-look"
     camera-controls
-    camera-orbit="0deg 90deg 70m"
-    min-camera-orbit="-720deg 70deg 70m"
-    max-camera-orbit="720deg 90deg 70m"
+    camera-orbit="0deg 90deg 60m"
+    min-camera-orbit="-720deg 70deg 60m"
+    max-camera-orbit="720deg 90deg 60m"
     min-field-of-view="30deg"
     max-field-of-view="30deg"
     disable-zoom
@@ -69,25 +42,49 @@
 </model-viewer>
 
 
-<!-- SETA MAIS INFORMAÇÕES -->
+  <!-- SETA MAIS INFORMAÇÕES -->
 <div class="wrap">
   <span class="arrow left">
     <span></span>
     <span></span>
   </span>
+  <span class="arrow-text">Find out more!</span> <!-- Text above the arrow -->
 </div>
 
 
 <!-- GALERIA IMAGENS -->
 <div class="gallery">
-    <div class="gallery-items">
-      <div class="gallery-item"><img src="./IMG/1.jpg"></div>
-      <div class="gallery-item"><img src="./IMG/2.jpg"></div>
-      <div class="gallery-item"><img src="./IMG/3.jpg"></div>
-      <div class="gallery-item"><img src="./IMG/4.jpg"></div>
-      <div class="gallery-item"><img src="./IMG/5.jpg"></div>
+  <div class="gallery-items">
+    <div class="gallery-item"><img src="./IMG/1.jpg" alt="Image 1"></div>
+    <div class="gallery-item"><img src="./IMG/2.jpg" alt="Image 2"></div>
+    <div class="gallery-item"><img src="./IMG/3.jpg" alt="Image 3"></div>
+    <div class="gallery-item"><img src="./IMG/4.jpg" alt="Image 4"></div>
+    <div class="gallery-item"><img src="./IMG/5.jpg" alt="Image 5"></div>
+    <div class="gallery-item"><img src="./IMG/6.jpeg" alt="Image 6"></div>
+    <div class="gallery-item"><img src="./IMG/8.jpg" alt="Image 8"></div>
+    <div class="gallery-item"><img src="./IMG/9.jpg" alt="Image 9"></div>
+      <video class="thumbnail-video" autoplay loop muted>
+        <source src="./IMG/7.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
+  </div>
 </div>
+
+
+<!-- Modal para exibir imagem ou vídeo ampliado -->
+<div class="modal">
+  <span class="close">&times;</span>
+  <span class="arrow left">&#10094;</span>
+  <img class="modal-content" id="img01" style="display: none;">
+  <video class="modal-content" id="video01" autoplay muted playsinline>
+    <source id="videoSource" src="" type="video/mp4">
+    Seu navegador não suporta vídeos.
+  </video>
+  <span class="arrow right">&#10095;</span>
+  <div id="caption"></div>
+</div>
+
 
 
 <!-- DESCRIÇÃO -->
@@ -96,7 +93,6 @@
       <p>EDUARDO SOUTO MOURA </p>
       <p1>PORTO | PORTUGAL</p1>
 </div>
-
 
 <script src="script.js"></script>
 
