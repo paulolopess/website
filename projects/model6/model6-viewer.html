@@ -4,63 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GLIMPSE</title>
-    <link rel="stylesheet" href="/projects/model6/model6-styles.css">
+    <link rel="stylesheet" href="model6-styles.css">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    
 </head>
 
 <body>
 
-<!--QR CODE SÓ FUNCIONA QUANDO TIVER DOMAIN
+<div class="background-overlay"></div>
 
- <div id="qrcode"></div>
-<script>
-    window.onload = function() {
-        console.log("QRCode:", typeof QRCode); // Deve mostrar 'function'
+<h1 class="title">KRYSSET CHAIR</h1>
 
-        if (typeof QRCode === "function") {
-            new QRCode(document.getElementById("qrcode"), {
-                text: "http://192.168.1.235:5500/projects/model6/model6-viewer.html",
-                width: 128,
-                height: 128
-            });
-        } else {
-            console.error("QRCode.js não carregou corretamente!");
-        }
-    };
-</script>
-<style>
-  #qrcode {
-      position: fixed; /* Keeps the QR code fixed in one position on the screen */
-      top: 20px; /* You can adjust this value */
-      right: 50%; /* You can adjust this value */
-      z-index: 10; /* Ensure it's on top of other elements */
-  }
-</style> -->
-
-
-
-<h1 class="title">CANTAREIRA</h1>
 <a href="../../index.html" class="back-button">
   <img src="../../main page/LOGO.png" alt="Back" style="width: 70px; height: auto;">
 </a>
 
 <model-viewer id="viewer"
-    src="/projects/model6/model6.gltf"
+    src="model6.gltf"
+    auto-rotate
     vr
     ar
     ar-modes="webxr scene-viewer quick-look"
     camera-controls
-    camera-orbit="0deg 90deg 70m"
-    min-camera-orbit="-720deg 70deg 70m"
-    max-camera-orbit="720deg 90deg 70m"
+    camera-orbit="50deg 90deg 2.5m"
+    min-camera-orbit="-720deg 70deg 2.5m"
+    max-camera-orbit="720deg 90deg 2.5m"
     min-field-of-view="30deg"
     max-field-of-view="30deg"
     disable-zoom
     disable-pan
     shadow-intensity="1"
-    environment-image="/projects/model6/model6.hdr">
+    environment-image="model6.hdr">
 
     <button slot="ar-button" class="ar-button">
         <img src="../augmented reality logo.gif">
@@ -70,32 +44,61 @@
 
 
 <!-- SETA MAIS INFORMAÇÕES -->
-<div class="wrap">
-  <span class="arrow left">
-    <span></span>
-    <span></span>
-  </span>
-</div>
-
-
+<button class="wrap">
+  <div class="border-button"> 
+    <div class="arrow-text-wrapper">
+      <div class="arrow-text">Find out more</div> 
+    </div>
+    <div class="arrow">
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</button>
+  
 <!-- GALERIA IMAGENS -->
 <div class="gallery">
-    <div class="gallery-items">
-      <div class="gallery-item"><img src="./IMG/1.jpg"></div>
-      <div class="gallery-item"><img src="./IMG/2.jpg"></div>
-      <div class="gallery-item"><img src="./IMG/3.jpg"></div>
-      <div class="gallery-item"><img src="./IMG/4.jpg"></div>
-      <div class="gallery-item"><img src="./IMG/5.jpg"></div>
-    </div>
+  <div class="gallery-items">
+    <div class="gallery-item"><img src="./IMG/1.jpg" alt="Image 1"></div>
+    <div class="gallery-item"><img src="./IMG/2.jpg" alt="Image 2"></div>
+    <div class="gallery-item"><img src="./IMG/3.jpg" alt="Image 2"></div>
+  </div>
+  <div class="gallery-text">Click to expand</div>
 </div>
 
+<!-- Modal para exibir imagem ou vídeo ampliado -->
+<div class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01" style="display: none;">
+  <video class="modal-content" id="video01" autoplay muted playsinline>
+    <source id="videoSource" src="" type="video/mp4">
+    Seu navegador não suporta vídeos.
+  </video>
+</div>
 
 <!-- DESCRIÇÃO -->
-    <div class="bottom-left">
-      <h1>CANTAREIRA<br>BUILDING</h1>
-      <p>EDUARDO SOUTO MOURA </p>
-      <p1>PORTO | PORTUGAL</p1>
+<div class="bottom-left">
+  <h1>KRYSSET<br>LOUNGE CHAIR</h1>
+  <p>FREDRIK A. KAYSER</p>
+  <p1>NORWAY</p1>
 </div>
+
+
+
+
+
+
+
+
+<div class="material-swap-container">
+  <button class="circle-button"   id="change-texture-button" title="Material 1"></button>
+  <button class="circle-button" id="button2" title="Material 2"></button>
+  <button class="circle-button" id="button3" title="Material 3"></button>
+</div>
+
+
+
+
 
 
 <script src="script.js"></script>
