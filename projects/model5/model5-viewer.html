@@ -4,89 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GLIMPSE</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="model5-styles.css">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    
 </head>
-
 <body>
 
-<div class="background-overlay"></div>
+    <!-- Background Overlay -->
+    <div class="background-overlay"></div>
 
-<h1 class="title">WOODNEST CABIN</h1>
 
-<a href="../../index.html" class="back-button">
-  <img src="../../main page/LOGO.png" alt="Back" style="width: 70px; height: auto;">
-</a>
+    <!-- Title Section -->
+    <h1 class="title">GF CHAIR</h1>
 
-<model-viewer id="viewer"
-    src="model5.gltf"
-    auto-rotate
-    vr
-    ar
-    ar-modes="webxr scene-viewer quick-look"
-    camera-controls
-    camera-orbit="-50deg 90deg 30m"
-    min-camera-orbit="-720deg 70deg 10m"
-    max-camera-orbit="720deg 90deg 30m"
-    min-field-of-view="30deg"
-    max-field-of-view="30deg"
-    shadow-intensity="1"
-    environment-image="model5.hdr">
 
-    <button slot="ar-button" class="ar-button">
-        <img src="../augmented reality logo.gif">
+    <!-- Back Button -->
+    <a href="../../index.html" class="back-button">
+        <img src="../../main page/LOGO.png" alt="Back" style="width: 70px; height: auto;">
+    </a>
+
+
+    <!-- Model Viewer -->
+    <model-viewer id="viewer"
+        src="model5.gltf"
+        vr
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        camera-orbit="50deg 90deg 2.3m"
+        min-camera-orbit="-720deg 70deg 2.3m"
+        max-camera-orbit="720deg 90deg 2.3m"
+        min-field-of-view="30deg"
+        max-field-of-view="30deg"
+        disable-zoom
+        disable-pan
+        shadow-intensity="1"
+        environment-image="model5.hdr">
+
+        <!-- Hotspots -->     
+        <button class="Hotspot" slot="hotspot-medidas" data-position="-0.23190672631628523m 0.03125426552557492m 0.38507094783530404m" data-normal="0.000182918076400424m -0.12855453771252243m 0.9917024238018666m"  data-visibility-attribute="visible">
+            <img src="../ruler.png" alt="Hotspot Medidas" width="24" height="24">
+        </button>
+        
+        
+        <!-- AR Button -->
+        <button slot="ar-button" class="ar-button">
+            <img src="../augmented reality logo.png">
+        </button>
+
+        <!--DIMENSÕES -->
+        <button slot="hotspot-dot+X-Y+Z" class="dot" data-position="1 -1 1" data-normal="1 0 0"></button>
+        <button slot="hotspot-dim+X-Y" class="dim" data-position="1 -1 0" data-normal="1 0 0"></button>
+        <button slot="hotspot-dot+X-Y-Z" class="dot" data-position="1 -1 -1" data-normal="1 0 0"></button>
+        <button slot="hotspot-dim+X-Z" class="dim" data-position="1 0 -1" data-normal="1 0 0"></button>
+        <button slot="hotspot-dot+X+Y-Z" class="dot" data-position="1 1 -1" data-normal="0 1 0"></button>
+        <button slot="hotspot-dim+Y-Z" class="dim" data-position="0 -1 -1" data-normal="0 1 0"></button>
+        <button slot="hotspot-dot-X+Y-Z" class="dot" data-position="-1 1 -1" data-normal="0 1 0"></button>
+        <button slot="hotspot-dim-X-Z" class="dim" data-position="-1 0 -1" data-normal="-1 0 0"></button>
+        <button slot="hotspot-dot-X-Y-Z" class="dot" data-position="-1 -1 -1" data-normal="-1 0 0"></button>
+        <button slot="hotspot-dim-X-Y" class="dim" data-position="-1 -1 0" data-normal="-1 0 0"></button>
+        <button slot="hotspot-dot-X-Y+Z" class="dot" data-position="-1 -1 1" data-normal="-1 0 0"></button>
+        <svg id="dimLines" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" class="dimensionLineContainer">
+            <line class="dimensionLine"></line>
+            <line class="dimensionLine"></line>
+            <line class="dimensionLine"></line>
+            <line class="dimensionLine"></line>
+            <line class="dimensionLine"></line>
+        </svg>
+
+    </model-viewer>
+
+  <!-- ALTERAR TEXTURAS -->
+    <div id="material-change-container" class="material-change-container">
+        <div id="material-titles">
+            <p id="material-name"></p>
+        </div>
+        <div class="texture-group" id="wood-textures">
+            <button class="change-texture" data-material="0" data-texture="./textures/BAKED_WOOD.png" data-material-name="WOOD | OILED OAK"><img src="./textures/oiled_oak_thumbnail.png" class="texture-preview"></button>
+            <button class="change-texture" data-material="0" data-texture="./textures/BAKED_WOOD2.png" data-material-name="WOOD | OILED WALLNUT"><img src="./textures/oiled_wallnut_thumbnail.png" class="texture-preview"></button>
+        </div>
+        
+        <div class="texture-group" id="leather-textures">
+            <button class="change-texture" data-material="1" data-texture="./textures/color _leather.png" data-material-name="LEATHER | BROWN"><img src="./textures/brown_thumbnail.jpg" class="texture-preview"></button>
+            <button class="change-texture" data-material="1" data-texture="./textures/color_leather2.png" data-material-name="LEATHER | NATURAL"><img src="./textures/natural_thumbnail.jpg" class="texture-preview"></button>
+            <button class="change-texture" data-material="1" data-texture="./textures/color_leather3.png" data-material-name="LEATHER | BLACK"><img src="./textures/black_thumbnail.jpg" class="texture-preview"></button>
+        </div>
+    </div>
+
+    <!-- More Info Button -->
+    <button class="wrap">
+        <div class="border-button"> 
+            <div class="arrow-text-wrapper">
+                <div class="arrow-text">Find out more</div> 
+            </div>
+            <div class="arrow">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </button>
 
-</model-viewer>
 
-
-  <!-- SETA MAIS INFORMAÇÕES -->
-  <button class="wrap">
-    <div class="border-button"> <!-- Container for the border -->
-      <div class="arrow-text-wrapper">
-        <div class="arrow-text">Find out more</div> <!-- Text above the arrow -->
-      </div>
-      <div class="arrow">
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </button>
-  
-
-  
-<!-- GALERIA IMAGENS -->
-<div class="gallery">
-  <div class="gallery-items">
-    <div class="gallery-item"><img src="./IMG/1.jpg" alt="Image 1"></div>
-    <div class="gallery-item"><img src="./IMG/2.jpg" alt="Image 2"></div>
-  </div>
-  <div class="gallery-text">Click to expand</div>
-</div>
-
-
-<!-- Modal para exibir imagem ou vídeo ampliado -->
-<div class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01" style="display: none;">
-  <video class="modal-content" id="video01" autoplay muted playsinline>
-    <source id="videoSource" src="" type="video/mp4">
-    Seu navegador não suporta vídeos.
-</div>
-
-
-
-
-<!-- DESCRIÇÃO -->
+    <!-- Description Section -->
     <div class="bottom-left">
-      <h1>WOODNEST<br>CABIN</h1>
-      <p>HELEN & HARD</p>
-      <p1>ODDA | NORWAY</p1>
-</div>
+        <div class="bottom-left-container">
+            <h1>GF<br>CHAIR</h1>
+            <p class="designer">CONÇALO FERNANDES</p> <!-- Added a class for more specific styling -->
+            <p class="location">VISEU | PORTUGAL</p> <!-- Changed to valid <p> tag with a class -->
+            <p class="project-description">Embodying modern elegance and functionality, it makes a standout addition to any contemporary space.<br>With a sleek tubular metal frame showcasing a unique geometric aesthetic, it strikes the perfect balance between bold design and everyday practicality.<br>The light wood seat and backrest bring a touch of warmth and natural charm, while the smooth wood finish enhances its minimalist appeal.
+                </p>
+        </div> 
+    </div>
+
+    <!-- Image Gallery -->
+    <div class="gallery">
+        <div class="gallery-items">
+            <div class="gallery-item"><img src="./IMG/1.jpeg" alt="Image 1"></div>
+            <div class="gallery-item"><img src="./IMG/2.jpeg" alt="Image 2"></div>
+        </div>
+        <div class="gallery-text">Click to expand</div>
+    </div>
 
 
-<script src="script.js"></script>
+    <!-- Modal for Expanded Image or Video -->
+    <div class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01" style="display: none;">
+        <video class="modal-content" id="video01" autoplay muted playsinline>
+            <source id="videoSource" src="" type="video/mp4">
+            Your browser does not support videos.
+        </video>
+    </div>
+
+
+    <!-- External Script -->
+    <script src="script.js"></script>
+
+
+
+
+
+    
 </body>
 </html>

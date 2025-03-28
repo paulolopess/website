@@ -333,7 +333,6 @@ video {
 }
 
 
-
 /*------------------ TEXTO INTERMÉDIO 2------------------------------------------------------------*/
 .text-line3, .text-line4 {
   position: absolute;
@@ -375,29 +374,6 @@ video {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*------------------ BARRA FILTRO ------------------------------------------------------------*/
 .filter-bar {
   text-align: center;
@@ -424,116 +400,87 @@ video {
 }
 
 
-/*------------------ IMAGENS ------------------------------------------------------------*/
-.image-grid {
-  display: flex; /* Use flexbox */
-  flex-wrap: wrap; /* Allow wrapping of items */
-  justify-content: flex-start; /* Align items to the left */
+/*------------------ LISTA DE PROJECTOS------------------------------------------------------------*/
+.container {
   position: absolute;
-  top: 450vh; /* Adjust top position */
+  top: 450vh;
+  width: 90%;
   z-index: 100;
-  width: 95%; /* Set width to 80% so 10% padding is left on both sides */
-  padding: 10px;
-  margin: 0 auto; /* Center the grid horizontally */
-  left: 7%; /* Add 10% left margin to ensure border space on the left */
-  right: 7%; /* Optional: If you want equal spacing on the right side */
-}
-.image-item {
-  position: relative;
-  width: 260px;  /* Fixed size */
-  height: 260px; /* Fixed size */
-  margin-right: 10px; /* Space between items */
-  margin-bottom: 10px; /* Space between items */
-  overflow: hidden;
-  cursor: pointer;
-  text-decoration: none; /* Removes default link underline */
-  display: block; /* Make sure items are displayed as blocks initially */
-}
-.image-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-.image-item:hover img {
-  transform: scale(1.1);
-}
-.overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, rgb(230, 230, 230) 35%, rgba(199, 150, 86, 0));
-  color: rgb(0, 0, 0);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align text to the left */
-  justify-content: flex-end; /* Move text to the bottom */
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  padding: 3%;
-  gap: 0px;
-}
-.image-item:hover .overlay {
-  opacity: 1;
-}
-.overlay h3 {
-  margin: 0;
-  font-size: 2em;
-  letter-spacing: 1px;
-  font-family: 'Anton', sans-serif;
-  margin-bottom: -20px;
-}
-.overlay p {
-  font-size: 0.9em;
-  font-family: 'Quicksand', sans-serif;
-  margin-bottom: 0px;
-}
-
-/* Hidden by default */
-.filter-bar, .image-grid {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
   visibility: hidden;
 }
 
-/* Visible when scrolled into view */
-.filter-visible {
+.gallery-visible {
   opacity: 1;
   transform: translateY(0);
   visibility: visible;
 }
 
-.grid-visible {
-  opacity: 1;
-  transform: translateY(0);
-  visibility: visible;
+.gallery-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
 }
 
+.item {
+  flex: 1 1 300px; /* Tamanho base e flexibilidade */
+  height: 600px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: flex 0.5s ease; /* Remove a transição de filtro */
+  position: relative;
+  text-decoration: none;
+}
 
+.item:hover {
+  flex: 2 1 700px; 
+}
 
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding-bottom: 20px;
+  text-align: center;
+}
 
+.item:hover .overlay {
+  opacity: 1;
+}
 
+h1 {
+  position: relative;
+  left: 10px;
+  margin-bottom: 0px;
+  font-family: "Anton", sans-serif;
+  font-size: 5em;
+  text-transform: uppercase;
+  color: white;
+  text-align: left;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.overlay p {
+  font-size: 1em;
+  left: 10px;
+  font-family: 'Quicksand', sans-serif;
+  margin-top: 0px;
+  text-align: left;
+}
 
 
 /*------------------ CONTACT ------------------------------------------------------------*/
