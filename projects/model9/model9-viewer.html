@@ -16,9 +16,9 @@
 
     <h1 class="title">KRYSSET CHAIR</h1>
 
-    <a href="../../index.html" class="back-button">
-        <img src="../../main page/LOGO.png" alt="Back" style="width: 70px; height: auto;">
-    </a>
+    <a href="../../index.html">
+        <img src="../../main page/LOGO.png" alt="Back" class="back-logo">
+      </a>
 
     <model-viewer id="viewer"
                   src="model9.gltf"
@@ -54,16 +54,13 @@
         
         <!-- Button to generate QR code -->
         <div id="ar-qr-code" class="ar-qr-button" onclick="generateQRCode()">
-            <img src="../augmented_reality_logo2.png" alt="AR QR Code">
+            <img id="ar-logo" src="../augmented_reality_logo2.png" alt="AR QR Code">
         </div>
 
         <!-- QR code container (hidden initially) -->
         <div id="qr-code-container" style="display: none;">
             <div id="qr-code"></div>
         </div>
-
-
-
 
         <button slot="hotspot-dot+X-Y+Z" class="dot" data-position="1 -1 1" data-normal="1 0 0"></button>
         <button slot="hotspot-dim+X-Y" class="dim" data-position="1 -1 0" data-normal="1 0 0"></button>
@@ -94,6 +91,7 @@
         <div class="texture-group" id="wood-textures">
             <button class="change-texture" data-material="0" data-texture="./textures/BAKED_WOOD.png" data-material-name="WOOD | OILED OAK"><img src="./textures/oiled_oak_thumbnail.png" class="texture-preview"></button>
             <button class="change-texture" data-material="0" data-texture="./textures/BAKED_WOOD2.png" data-material-name="WOOD | OILED WALLNUT"><img src="./textures/oiled_wallnut_thumbnail.png" class="texture-preview"></button>
+            <button class="change-texture" data-material="0" data-texture="./textures/BAKED_WOOD3.png" data-material-name="WOOD | BLACK LACQUERED OAK"><img src="./textures/oak_black_thumbnail.jpg" class="texture-preview"></button>
         </div>
         
         <div class="texture-group" id="leather-textures">
@@ -152,10 +150,5 @@
     <!-- External Script -->
     <script src="script.js"></script>
 
-
-
-
-
-    
 </body>
 </html>

@@ -10,6 +10,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100%;
   background: rgb(230, 230, 230) 20%; /* O fundo final após a animação */
   background-size: cover;
   background-position: center;
@@ -29,7 +30,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgb(230, 230, 230) 10%, rgb(18, 71, 114)); /* Fundo inicial azul e branco */
+  background: linear-gradient(to top, rgb(230, 230, 230) 10%, rgb(73, 106, 119)); /* Fundo inicial azul e branco */
   transform: translateY(0); /* Começa com o fundo na posição normal */
   transition: transform 1s ease-in-out; /* Transição suave quando o fundo se mover */
 }
@@ -49,7 +50,7 @@ model-viewer {
 /*------------------------------ TÍTULO ------------------------------------------------------------------------------*/
 .title {
   position: fixed;
-  font-size: 20vw;
+  font-size: 17.5vw;
   font-family: 'Anton', sans-serif;
   text-transform: uppercase;
   white-space: nowrap;
@@ -71,15 +72,15 @@ model-viewer {
 }
 
 /*------------------------------ LOGO - VOLTA MAIN PAGE --------------------------------------------------------- */
-.back-button {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    z-index: 20;
-    width: 70px; /* Adjust logo size */
-    height: auto;
+.back-logo {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  z-index: 20;
+  width: 4%;   
+  height: auto;
+  cursor: pointer;
 }
-
 
 /*------------------------------ BOTÃO REALIDADE AUMENTADA --------------------------------------------------------*/
 .ar-button {
@@ -90,9 +91,9 @@ model-viewer {
   border: none;
   padding: 0;
   cursor: pointer;
-  z-index: 20;
-  opacity: 0;
-  animation: fadeIn 0.5s ease-in-out forwards;
+  z-index: 200; /* Ensure the button stays on top */
+  opacity: 1; /* Always visible */
+  transition: opacity 0.3s ease;
 }
 
 .ar-button img {
@@ -101,17 +102,75 @@ model-viewer {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-@keyframes fadeIn {
-  from {
-      opacity: 0;
+/* Style for the AR button */
+.ar-qr-button {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 100; /* Ensure the button stays on top */
+  opacity: 1; /* Always visible */
+  transition: opacity 0.3s ease;
+}
+
+/* Style for the image inside the button */
+.ar-qr-button img {
+  width: 40px;
+  height: auto;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Style for the QR code logo */
+#ar-logo {
+  width: 40px; /* Adjust the size of the logo */
+  border: 3px solid transparent; /* No border initially */
+  transition: all 0.3s ease; /* Smooth transition for border and opacity */
+}
+
+/* Add border and animation for disappearing */
+#ar-logo.fade-out {
+  opacity: 0; /* Fade out */
+  border-color: rgba(0, 0, 0, 0.5); /* Change border color to dark when fading out */
+}
+
+/* Position the QR code container */
+#qr-code-container {
+  display: none; /* Initially hidden */
+  position: fixed; /* Fixed positioning */
+  top: 30px; /* 50px from the top */
+  right: 30px; /* 30px from the right */
+  z-index: 200; /* Ensure it's on top of other elements */
+  text-align: center;
+  opacity: 0; /* Start with no opacity */
+  transform: scale(.8); /* Start scaled down */
+  transform-origin: top right; /* Scale from the top-right corner */
+  animation: fadeInScale 0.5s ease forwards; /* Add animation */
+}
+
+/* Animation for fade-in and scale */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
   }
-  to {
-      opacity: 1;
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
+/* Style for QR code itself */
+#qr-code {
+  border: 4px solid #000; /* You can change the color and thickness */
+  border-radius: 8px; /* Optional: rounded corners */
+  padding: 10px; /* Optional: spacing between the QR and border */
+  background-color: #ffffff00; /* Optional: background for contrast */
+}
 
-/*------------------------------ SETA ---------------------------------------------------------------------------------*/
+/*--------------------------- SETA ---------------------------------------------------------------------------------*/
 .wrap {
   position: absolute;
   bottom: 30px;
@@ -779,3 +838,25 @@ model-viewer {
   object-fit: cover; /* Ensure the video covers the container */
   border-radius: 15px; /* Add rounded corners */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

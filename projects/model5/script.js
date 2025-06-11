@@ -37,16 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
   
         // Toggle bottom-left container animation and state
         if (isBottomLeftOpen) {
-          bottomLeftContainer.classList.add('closed');
-          bottomLeftContainer.style.display = 'none'; // Hide when closed
+            bottomLeftContainer.classList.add('closed');
+            setTimeout(() => {
+                bottomLeftContainer.style.display = 'none'; // Hide after the animation
+            }, 1500); // 1500ms é a duração da animação (1.5s)
         } else {
-          bottomLeftContainer.classList.remove('closed');
-          bottomLeftContainer.style.display = 'block'; // Show when opened
+            bottomLeftContainer.style.display = 'block'; // Show when opened
+            bottomLeftContainer.classList.remove('closed');
         }
-  
+
         // Toggle the bottom-left state
         isBottomLeftOpen = !isBottomLeftOpen;
-  
+        
         // Handle hotspots visibility with fade effect
         if (isBottomLeftOpen) {
           hotspots.forEach(hotspot => {
@@ -464,4 +466,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   }
   });
-  
+

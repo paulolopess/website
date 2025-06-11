@@ -11,9 +11,34 @@ body {
   z-index: 1;
 }
 
+/* Apply smooth scrolling globally */
+html {
+  scroll-behavior: smooth;
+}
+
+/*------------------ SCROLLBAR ------------------------------------------------------------*/
+::-webkit-scrollbar {
+  width: 10px;  /* Set width for vertical scrollbar */
+  height: 20px; /* Set height for horizontal scrollbar */
+}
+::-webkit-scrollbar-thumb {
+  background-color: #ffffff; /* Light grey color */
+  border-radius: 10px;     /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+::-webkit-scrollbar-track {
+  background-color: #ff000000; /* Light grey color for the track */
+  border-radius: 10px;        /* Rounded corners */
+}
+::-webkit-scrollbar-horizontal {
+  height: 2px;
+}
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
 
 /*------------------ INTRO / END ------------------------------------------------------------*/
-/* Keep the logo fixed in the background */
 .intro {
   position: fixed;
   width: 100vw;
@@ -108,6 +133,7 @@ body {
   z-index: 20;
   opacity: .5;
   animation: pulse 2s infinite ease-in-out;
+  transition: opacity 0.3s ease-out;
 }
 
 .scroll-icon__dot {
@@ -124,6 +150,13 @@ body {
   backface-visibility: hidden;
   animation: scroll_2 2s ease-out infinite;
 }
+
+/* Hidden state for scroll icon */
+.scroll-icon.hidden {
+  opacity: 0;
+  pointer-events: none; /* Optionally prevent interaction with the icon when hidden */
+}
+
 
 
 /*------------------ TEXTO INTERMÉDIO ------------------------------------------------------------*/
@@ -404,7 +437,7 @@ video {
 .container {
   position: absolute;
   top: 450vh;
-  width: 90%;
+  width: 100%;
   z-index: 100;
   opacity: 0;
   transform: translateY(20px);
@@ -420,7 +453,7 @@ video {
 
 .gallery-wrap {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   padding: 20px;
 }
@@ -467,7 +500,7 @@ h1 {
   left: 10px;
   margin-bottom: 0px;
   font-family: "Anton", sans-serif;
-  font-size: 5em;
+  font-size: 4em;
   text-transform: uppercase;
   color: white;
   text-align: left;

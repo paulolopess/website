@@ -38,10 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Toggle bottom-left container animation and state
         if (isBottomLeftOpen) {
           bottomLeftContainer.classList.add('closed');
-          bottomLeftContainer.style.display = 'none'; // Hide when closed
+        
+          // Esperar pela duração da animação antes de esconder
+          setTimeout(() => {
+            bottomLeftContainer.style.display = 'none';
+          }, 500); // 500ms ou o tempo da tua animação .closed
         } else {
           bottomLeftContainer.classList.remove('closed');
-          bottomLeftContainer.style.display = 'block'; // Show when opened
+          bottomLeftContainer.style.display = 'block';
         }
   
         // Toggle the bottom-left state
@@ -77,18 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
         isGalleryOpen = !isGalleryOpen;
       });
     }
-  });
-  
-  
-  
-  
-
-
-  
+});
 
 
 // --------------------- MODAL GALLERY ------------------------------------------------------------------------------
-
 const galleryItems = document.querySelectorAll('.gallery-item img, .gallery-item video');
 const modal = document.querySelector('.modal');
 const modalImg = document.getElementById('img01');
@@ -468,46 +464,70 @@ if (toggleDimensionsButton) {
 
 
 
-
-// --------------------- BOTÃO GERA QRCODE --------------------------------------------------------------- 
+// --------------------- QR CODE ------------------------------------------------------------------------------
 let isQRCodeVisible = false;
 
 function generateQRCode() {
-    const qrCodeUrl = "https://paulolopess.github.io/website/projects/model6/model6-viewer.html";
-    const qrCodeContainer = document.getElementById("qr-code");
+  const qrCodeUrl = "https://paulolopess.github.io/website/projects/modelsqrcode/modelqrcode-viewer.html";
+  const qrCodeContainer = document.getElementById("qr-code");
+  const container = document.getElementById("qr-code-container");
+  const logo = document.getElementById("ar-logo");
 
-    // Check if the QR code is already generated
-    if (!isQRCodeVisible) {
-        // Generate the QR code only once
-        if (!qrCodeContainer.hasChildNodes()) {
-            new QRCode(qrCodeContainer, {
-                text: qrCodeUrl,
-                width: 128,
-                height: 128
-            });
-        }
-
-        // Show the QR code container
-        document.getElementById('qr-code-container').style.display = 'block';
-    } else {
-        // Hide the QR code container
-        document.getElementById('qr-code-container').style.display = 'none';
+  if (!isQRCodeVisible) {
+    // Generate QR code if not already created
+    if (!qrCodeContainer.hasChildNodes()) {
+      new QRCode(qrCodeContainer, {
+        text: qrCodeUrl,
+        width: 128,
+        height: 128
+      });
     }
 
-    // Toggle the visibility flag
-    isQRCodeVisible = !isQRCodeVisible;
+    // Show the QR code container with animation
+    container.style.display = "block";
+    setTimeout(() => {
+      container.classList.add("visible"); // Trigger fade-in and scale animation
+    }, 10);
+    
+    // Fade-out the logo
+    logo.classList.add("fade-out");
+  } else {
+    // Hide the QR code container with animation
+    container.classList.remove("visible");
+    setTimeout(() => {
+      container.style.display = "none"; // Wait for fade-out animation to finish
+    }, 300);
+    
+    // Add a delay before the logo reappears smoothly
+    setTimeout(() => {
+      logo.classList.remove("fade-out");
+    }, 300); // This delay matches the fade-out time of the QR code
+  }
+
+  isQRCodeVisible = !isQRCodeVisible;
 }
 
-function closeQRCode() {
-    // Hide the QR code container when the close button is clicked
-    document.getElementById('qr-code-container').style.display = 'none';
+// Close the QR code when clicking outside
+document.addEventListener("click", function(event) {
+  const container = document.getElementById("qr-code-container");
+  const button = document.getElementById("ar-qr-code");
+
+  if (
+    isQRCodeVisible &&
+    !button.contains(event.target) &&
+    !container.contains(event.target)
+  ) {
+    container.classList.remove("visible");
+    setTimeout(() => {
+      container.style.display = "none"; // Wait for fade-out animation
+    }, 300);
+    
+    // Add a delay before the logo reappears smoothly
+    const logo = document.getElementById("ar-logo");
+    setTimeout(() => {
+      logo.classList.remove("fade-out");
+    }, 300); // Match the fade-out time of the QR code
+
     isQRCodeVisible = false;
-}
-
-// Close the QR code container if clicking anywhere else on the page
-document.addEventListener('click', function(event) {
-    if (isQRCodeVisible && !document.getElementById('ar-qr-code').contains(event.target) && !document.getElementById('qr-code-container').contains(event.target)) {
-        document.getElementById('qr-code-container').style.display = 'none';
-        isQRCodeVisible = false;
-    }
+  }
 });

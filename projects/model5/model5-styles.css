@@ -29,7 +29,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgb(230, 230, 230) 10%, rgb(114, 80, 18)); /* Fundo inicial azul e branco */
+  background: linear-gradient(to top, rgb(230, 230, 230) 10%, rgb(167, 111, 47)); /* Fundo inicial azul e branco */
   transform: translateY(0); /* Começa com o fundo na posição normal */
   transition: transform 1s ease-in-out; /* Transição suave quando o fundo se mover */
 }
@@ -497,6 +497,7 @@ model-viewer {
 
 
 /*------------------------------ DESCRIÇÃO --------------------------------------------------------------------------*/
+/*------------------------------ DESCRIÇÃO --------------------------------------------------------------------------*/
 /* Bottom-left container styles */
 .bottom-left-container {
   position: absolute;
@@ -508,39 +509,36 @@ model-viewer {
   border-radius: 10px;
   color: white;
   font-family: 'Quicksand', sans-serif;
-  animation: slideUp 1.5s ease-out forwards; /* Slide up animation */
+  animation: slideUpDescription 1.5s ease-out forwards; /* Slide up animation */
   z-index: 10;
 }
 
-/* Keyframes for sliding up */
-@keyframes slideUp {
+@keyframes slideUpDescription {
   0% {
-    bottom: -100%; /* Start off-screen */
+      bottom: -100%;
   }
   100% {
-    bottom: 10px; /* End at the desired position */
+      bottom: 10px;
   }
 }
 
-/* Keyframes for sliding down */
-@keyframes slideDown {
+@keyframes slideDownDescription {
   0% {
-    bottom: 10px; /* Start at the visible position */
+      bottom: 10px;
   }
   100% {
-    bottom: -100%; /* Move off-screen */
+      bottom: -100%;
   }
 }
 
-/* When bottom-left-container is closed, apply slideDown animation */
 .bottom-left-container.closed {
-  animation: slideDown 1.5s ease-out forwards; /* Slide down animation */
+  animation: slideDownDescription 1.5s ease-out forwards; /* Slide down animation */
 }
 
 /* Styling for the text elements inside bottom-left-container */
 .bottom-left h1 {
   margin: 0;
-  font-size: 76px;
+  font-size: 120px;
   font-family: 'Anton', sans-serif;
   color: rgb(0, 0, 0);
   line-height: 1;

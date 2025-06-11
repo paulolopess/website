@@ -1,0 +1,42 @@
+{
+  "title": "CANTAREIRA",
+  "name": "CANTAREIRA",
+  "designer": "Eduardo Souto Moura",
+  "location": "Porto | Portugal",
+  "modelSrc": "model4.gltf",
+  "environmentImage": "model4.hdr",
+  "cameraOrbit": "8deg 90deg 60m",
+  "min-camera-orbit": "-720deg 70deg 0m",
+  "max-camera-orbit": "720deg 90deg 60m",
+  "min-field-of-view": "30deg",
+  "max-field-of-view": "30deg",
+  "disable-pan": true,
+  "backgroundTopColor": "rgb(75, 110, 117)",
+  "galleryImages": [
+    "1.jpg",
+    "2.jpg",
+    "3.jpg",
+    "4.jpg",
+    "5.webp",
+    "6.jpg"
+  ],
+  "hotspots": [
+    {
+      "id": "TRANSPARENCY_TOGGLE",
+      "position": "-0.004249849203865105m 0.456632574067078m -0.14829320018056277m",
+      "image": "../../transparency.png",
+      "action": "ToggleMaterialAlpha",
+      "targetMaterial": "ENVOLVENTE",
+      "alphaValueOn": 0.3,
+      "alphaValueOff": 1.0 
+    }
+  ],
+  "materials": {
+    "ENVOLVENTE": {
+      "materialIndex": 0,
+      "textures": [
+
+      ]
+    }
+  }
+}

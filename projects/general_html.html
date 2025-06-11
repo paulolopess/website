@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLIMPSE</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="general_css.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+    <div class="background-overlay"></div>
+
+    <h1 class="title" id="model-title"></h1>
+
+    <a href="../../index.html" class="back-button">
+        <img src="../../main page/LOGO.png" alt="Back" style="width: 70px; height: auto;" />
+    </a>
+
+<model-viewer
+  id="model-viewer" vr
+  ar
+  ar-modes="webxr scene-viewer quick-look"
+  camera-controls
+  shadow-intensity="1">
+
+  <div id="ar-qr-code" class="ar-qr-button">
+    <img id="ar-logo" src="./augmented_reality_logo2.png" alt="AR QR Code">
+  </div>
+
+  <div id="qr-code-container" style="display: none;">
+    <div id="qr-code"></div>
+  </div>
+
+  <!-- Hotspot para ativar as medidas -->
+  <button slot="hotspot-medidas" class="toggle-dimensions-button">
+    Mostrar Medidas
+  </button>
+
+  <!-- Hotspots para as medidas (botões) -->
+  <button slot="hotspot-dim+X-Y">0 cm</button>
+  <button slot="hotspot-dim+X-Z">0 cm</button>
+  <button slot="hotspot-dim+Y-Z">0 cm</button>
+  <button slot="hotspot-dim-X-Z">0 cm</button>
+  <button slot="hotspot-dim-X-Y">0 cm</button>
+
+  <!-- Hotspots "dot" para as linhas das medidas -->
+  <button slot="hotspot-dot+X-Y+Z"></button>
+  <button slot="hotspot-dot+X-Y-Z"></button>
+  <button slot="hotspot-dot+X+Y-Z"></button>
+  <button slot="hotspot-dot-X+Y-Z"></button>
+  <button slot="hotspot-dot-X-Y-Z"></button>
+  <button slot="hotspot-dot-X-Y+Z"></button>
+
+  <!-- SVG para as linhas -->
+  <svg id="dimLines" slot="hotspot-dimLines" width="600" height="400" style="position:absolute; top:0; left:0; pointer-events:none;">
+    <line stroke="red" stroke-width="2" />
+    <line stroke="red" stroke-width="2" />
+    <line stroke="red" stroke-width="2" />
+    <line stroke="red" stroke-width="2" />
+    <line stroke="red" stroke-width="2" />
+  </svg>
+
+</model-viewer>
+
+
+<!-- MORE INFO -->
+<button class="wrap" id="toggle-hotspots-button"> <div class="border-button">
+        <div class="arrow-text-wrapper">
+            <div class="arrow-text">Find out more</div>
+        </div>
+        <div class="arrow">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</button>
+
+
+<!-- DESCRIÇÃO DO PROJECTO -->
+<div class="bottom-left">
+<div class="bottom-left-container">
+    <div class="info-line">  <h1 id="project-name">Loading...</h1>
+    <div class="details-right"> <p class="designer" id="project-designer"></p>
+        <p class="location" id="project-location"></p>
+    </div>
+    </div>
+    <p class="project-description" id="project-description"></p>
+</div>
+</div>
+
+
+<!-- IMAGENS -->
+<div class="gallery">
+    <div class="gallery-items">
+</div>
+<div class="gallery-text">Click to expand</div>
+</div>
+
+
+<!-- MODAL PARA AUMENTAR IMAGENS/VIDEOS -->
+<div class="modal" style="display:none;">
+<span class="close">&times;</span>
+<img class="modal-content" id="img01" style="display: none;">
+<video class="modal-content" id="video01" autoplay muted playsinline style="display: none;">
+    <source id="videoSource" src="" type="video/mp4">
+    Your browser does not support videos.
+</video>
+</div>
+
+
+<!-- ALTERAR TEXTURAS -->
+<div id="material-change-container">
+
+    <div class="texture-group">
+        <!-- texture buttons go here -->
+    </div>
+
+    <p id="material-name"></p>
+
+</div>
+
+
+<script src="./general_js.js"></script>
+
+
+</body>
+</html>

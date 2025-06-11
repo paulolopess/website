@@ -1,0 +1,157 @@
+{
+  "title": "GF CHAIR",
+
+
+  "name": "GF CHAIR",
+  "designer": "CONÇALO FERNANDES",
+  "location": "VISEU | PORTUGAL",
+  "description": "Embodying modern elegance and functionality, it makes a standout addition to any contemporary space. With a sleek tubular metal frame showcasing a unique geometric aesthetic, it strikes the perfect balance between bold design and everyday practicality. The light wood seat and backrest bring a touch of warmth and natural charm, while the smooth wood finish enhances its minimalist appeal.",
+  
+  
+  "modelSrc": "./model5/model5.gltf",
+  "environmentImage": "./model5/model5.hdr",
+  "cameraOrbit": "50deg 90deg 2.3m",
+  "min-camera-orbit": "-720deg 70deg 2.3m",
+  "max-camera-orbit": "720deg 90deg 2.3m",
+  "min-field-of-view": "30deg",
+  "max-field-of-view": "30deg",
+  "disable-zoom": true,
+  "disable-pan": true,
+
+  "hotspots": [
+    {
+      "slot": "hotspot-medidas",
+      "position": "-0.23190672631628523m 0.03125426552557492m 0.38507094783530404m",
+      "normal": "0.000182918076400424m -0.12855453771252243m 0.9917024238018666m",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Medidas"
+    },
+    {
+      "slot": "hotspot-dot+X-Y+Z",
+      "position": "1 -1 1",
+      "normal": "1 0 0",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Dot +X-Y+Z"
+    },
+    {
+      "slot": "hotspot-dim+X-Y",
+      "position": "1 -1 0",
+      "normal": "1 0 0",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Dim +X-Y"
+    },
+    {
+      "slot": "hotspot-dot+X-Y-Z",
+      "position": "1 -1 -1",
+      "normal": "1 0 0",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Dot +X-Y-Z"
+    },
+    {
+      "slot": "hotspot-dim+X-Z",
+      "position": "1 0 -1",
+      "normal": "1 0 0",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Dim +X-Z"
+    },
+    {
+      "slot": "hotspot-dot+X+Y-Z",
+      "position": "1 1 -1",
+      "normal": "0 1 0",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Dot +X+Y-Z"
+    },
+    {
+      "slot": "hotspot-dim+Y-Z",
+      "position": "0 -1 -1",
+      "normal": "0 1 0",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Dim +Y-Z"
+    },
+    {
+      "slot": "hotspot-dot-X+Y-Z",
+      "position": "-1 1 -1",
+      "normal": "0 1 0",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Dot -X+Y-Z"
+    },
+    {
+      "slot": "hotspot-dim-X-Z",
+      "position": "-1 0 -1",
+      "normal": "-1 0 0",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Dim -X-Z"
+    },
+    {
+      "slot": "hotspot-dot-X-Y-Z",
+      "position": "-1 -1 -1",
+      "normal": "-1 0 0",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Dot -X-Y-Z"
+    },
+    {
+      "slot": "hotspot-dim-X-Y",
+      "position": "-1 -1 0",
+      "normal": "-1 0 0",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Dim -X-Y"
+    },
+    {
+      "slot": "hotspot-dot-X-Y+Z",
+      "position": "-1 -1 1",
+      "normal": "-1 0 0",
+      "visibility": "visible",
+      "icon": "../ruler.png",
+      "alt": "Hotspot Dot -X-Y+Z"
+    }
+  ],
+  "materials": [
+    {
+      "index": 0,
+      "name": "WOOD",
+      "textures": [
+        {
+          "src": "./textures/BAKED_WOOD.png",
+          "thumbnail": "./textures/oiled_oak_thumbnail.png"
+        },
+        {
+          "src": "./textures/BAKED_WOOD2.png",
+          "thumbnail": "./textures/oiled_wallnut_thumbnail.png"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": "LEATHER",
+      "textures": [
+        {
+          "src": "./textures/color_leather.png",
+          "thumbnail": "./textures/brown_thumbnail.jpg"
+        },
+        {
+          "src": "./textures/color_leather2.png",
+          "thumbnail": "./textures/natural_thumbnail.jpg"
+        },
+        {
+          "src": "./textures/color_leather3.png",
+          "thumbnail": "./textures/black_thumbnail.jpg"
+        }
+      ]
+    }
+  ],
+  "gallery": [
+    { "src": "./IMG/1.jpeg", "alt": "Image 1" },
+    { "src": "./IMG/2.jpeg", "alt": "Image 2" }
+  ]
+}

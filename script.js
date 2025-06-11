@@ -1,7 +1,6 @@
-
 //--------- FILTER PROJECTS ------------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
-   const buttons = document.querySelectorAll(".filter-btn");
+    const buttons = document.querySelectorAll(".filter-btn");
     const projects = document.querySelectorAll(".item");
 
     buttons.forEach(button => {
@@ -23,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
 
 //--------- SCROLL TO ACTIVATE ------------------------------------------------------
 window.addEventListener("scroll", function () {
@@ -55,6 +53,7 @@ window.addEventListener("scroll", function () {
     let servicesContainer = document.querySelector(".services-container");
     let filterBar = document.querySelector(".filter-bar");
     let imageGrid = document.querySelector(".container.gallery-visible");
+    let scrollIcon = document.getElementById('scroll-icon'); // Add reference to the scroll icon
 
     // Text-line visibility logic
     if (text1) {
@@ -109,8 +108,22 @@ window.addEventListener("scroll", function () {
     } else if (imageGrid) {
         imageGrid.classList.remove("grid-visible");
     }
-});
 
+    // Hide the scroll icon when the user reaches the bottom of the page
+    let scrollHeight = document.documentElement.scrollHeight;
+    let viewportHeight = window.innerHeight;
+
+    // Check if we have reached the very bottom of the page (with a small buffer)
+    if (scrollPosition + viewportHeight >= scrollHeight - 10) { // Add a buffer of 10px
+        if (scrollIcon) {
+            scrollIcon.classList.add("hidden"); // Hide the scroll icon
+        }
+    } else {
+        if (scrollIcon) {
+            scrollIcon.classList.remove("hidden"); // Show the scroll icon when not at the bottom
+        }
+    }
+});
 
 //--------- INITIAL AND FINAL ANIMATIONS ------------------------------------------------------
 document.addEventListener("scroll", function () {
@@ -155,4 +168,51 @@ window.addEventListener("load", function () {
     if (logo) {
         logo.classList.add("fade-in");
     }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const galleryWrap = document.getElementById('gallery-wrap');
+galleryWrap.innerHTML = ''; // clear if needed
+
+const projectDivs = document.querySelectorAll('.project-data');
+
+projectDivs.forEach(div => {
+  const id = div.dataset.id;
+  const title = div.dataset.title;
+  const subtitle = div.dataset.subtitle;
+  const thumbnail = div.dataset.thumbnail;
+
+  const link = document.createElement('a');
+  link.href = `./projects/general_html.html?project=${id}`;
+  link.className = `item ${id}`;
+  link.style.backgroundImage = `url('${thumbnail}')`;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+
+  const h1 = document.createElement('h1');
+  h1.textContent = title;
+
+  const p = document.createElement('p');
+  p.textContent = subtitle;
+
+  overlay.appendChild(h1);
+  overlay.appendChild(p);
+  link.appendChild(overlay);
+
+  galleryWrap.appendChild(link);
 });
