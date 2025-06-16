@@ -403,6 +403,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // ----------------- ESCONDE/MOSTRA AO CLICAR NA SETA --------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
+  const arrowHitbox = document.querySelector('.arrow-hitbox');
   const arrow = document.querySelector('.arrow');
   const bottomLeftContainer = document.querySelector('.bottom-left-container');
   const gallery = document.querySelector('.gallery');
@@ -411,6 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let isGalleryOpen = false;
   let isBottomLeftOpen = false;
+  let isBackgroundUp = false;
 
   if (gallery && bottomLeftContainer && title) {
     gallery.style.display = 'none';
@@ -419,23 +421,19 @@ document.addEventListener('DOMContentLoaded', () => {
     title.style.animation = 'fadeInBottom 1s ease-out forwards';
   }
 
-  let isBackgroundUp = false;
-
-  if (arrow) {
-    arrow.addEventListener('click', () => {
+  if (arrowHitbox) {
+    arrowHitbox.addEventListener('click', () => {
       const isHidden = bottomLeftContainer.style.bottom === '-100%' || bottomLeftContainer.style.bottom === '';
 
-      // Toggle gallery display
       gallery.style.display = isHidden ? 'block' : 'none';
       title.classList.toggle('move-left');
-      arrow.classList.toggle('active');
+      arrow.classList.toggle('active'); // ← Toggle the rotation here
 
       if (overlay) {
         overlay.classList.toggle('up', !isBackgroundUp);
         isBackgroundUp = !isBackgroundUp;
       }
 
-      // Toggle bottomLeftContainer
       if (isBottomLeftOpen) {
         bottomLeftContainer.classList.add('closed');
         setTimeout(() => {
@@ -447,7 +445,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       isBottomLeftOpen = !isBottomLeftOpen;
 
-      // Toggle gallery animation
       if (isGalleryOpen) {
         gallery.classList.add('closed');
       } else {
@@ -538,7 +535,7 @@ updateGalleryItems();
 
 
 
-// ----------------- MOSTRAR / ESCONDER QR CODE --------------------------------------------------------------------------------------------------
+// --------------------- QR CODE ------------------------------------------------------------------------------
 let isQRCodeVisible = false;
 
 function generateQRCode() {
@@ -548,6 +545,7 @@ function generateQRCode() {
   const logo = document.getElementById("ar-logo");
 
   if (!isQRCodeVisible) {
+    // Generate QR code if not already created
     if (!qrCodeContainer.hasChildNodes()) {
       new QRCode(qrCodeContainer, {
         text: qrCodeUrl,
@@ -556,213 +554,51 @@ function generateQRCode() {
       });
     }
 
+    // Show the QR code container with animation
     container.style.display = "block";
     setTimeout(() => {
-      container.classList.add("visible");
+      container.classList.add("visible"); // Trigger fade-in and scale animation
     }, 10);
+    
+    // Fade-out the logo
     logo.classList.add("fade-out");
-
-    // Usa um timeout para permitir o clique no botão sem acionar o fechamento
-    setTimeout(() => {
-      document.addEventListener("click", handleOutsideClick);
-    }, 20);
-
-    isQRCodeVisible = true;
   } else {
-    closeQRCode();
+    // Hide the QR code container with animation
+    container.classList.remove("visible");
+    setTimeout(() => {
+      container.style.display = "none"; // Wait for fade-out animation to finish
+    }, 300);
+    
+    // Add a delay before the logo reappears smoothly
+    setTimeout(() => {
+      logo.classList.remove("fade-out");
+    }, 300); // This delay matches the fade-out time of the QR code
   }
+
+  isQRCodeVisible = !isQRCodeVisible;
 }
 
-function closeQRCode() {
+// Close the QR code when clicking outside
+document.addEventListener("click", function(event) {
   const container = document.getElementById("qr-code-container");
-  const logo = document.getElementById("ar-logo");
-
-  container.classList.remove("visible");
-  setTimeout(() => {
-    container.style.display = "none";
-  }, 300);
-  setTimeout(() => {
-    logo.classList.remove("fade-out");
-  }, 300);
-
-  document.removeEventListener("click", handleOutsideClick);
-  isQRCodeVisible = false;
-}
-
-function handleOutsideClick(event) {
-  const container = document.getElementById("qr-code-container");
-  const qrButton = document.getElementById("qr-code-button");
+  const button = document.getElementById("ar-qr-code");
 
   if (
-    container &&
-    !container.contains(event.target) &&
-    event.target !== qrButton
+    isQRCodeVisible &&
+    !button.contains(event.target) &&
+    !container.contains(event.target)
   ) {
-    closeQRCode();
-  }
-}
+    container.classList.remove("visible");
+    setTimeout(() => {
+      container.style.display = "none"; // Wait for fade-out animation
+    }, 300);
+    
+    // Add a delay before the logo reappears smoothly
+    const logo = document.getElementById("ar-logo");
+    setTimeout(() => {
+      logo.classList.remove("fade-out");
+    }, 300); // Match the fade-out time of the QR code
 
-function setupQRCodeToggle() {
-  const qrButton = document.getElementById("qr-code-button");
-  if (qrButton) {
-    qrButton.addEventListener("click", (event) => {
-      event.stopPropagation(); // Impede que o clique no botão feche imediatamente o QR
-      generateQRCode();
-    });
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-// --------------------- MEDIDAS ------------------------------------------------------------------------------
-document.querySelector('#model-viewer').addEventListener('load', () => {
-
-  const modelViewer = document.querySelector('#model-viewer');
-  const toggleButton = document.querySelector('.Hotspot[slot="hotspot-medidas"]');
-  
-  // Seleciona os botões de hotspots dentro do shadow DOM do modelViewer
-  const dimElements = [
-    ...modelViewer.shadowRoot.querySelectorAll('button[slot^="hotspot-dim"]'),
-    modelViewer.shadowRoot.querySelector('#dimLines')
-  ];
-  
-  let dimensionsVisible = false;
-
-  function drawLine(svgLine, dotHotspot1, dotHotspot2, dimensionHotspot) {
-    if (dotHotspot1 && dotHotspot2) {
-      svgLine.setAttribute('x1', dotHotspot1.canvasPosition.x);
-      svgLine.setAttribute('y1', dotHotspot1.canvasPosition.y);
-      svgLine.setAttribute('x2', dotHotspot2.canvasPosition.x);
-      svgLine.setAttribute('y2', dotHotspot2.canvasPosition.y);
-
-      if (dimensionHotspot && !dimensionHotspot.facingCamera) {
-        svgLine.classList.add('hide');
-      } else {
-        svgLine.classList.remove('hide');
-      }
-    }
-  }
-
-  const dimLines = modelViewer.shadowRoot.querySelectorAll('line');
-
-  // Substitui o modelViewer.queryHotspot por querySelector no shadowRoot
-  const getHotspot = (name) => modelViewer.shadowRoot.querySelector(`button[slot="${name}"]`);
-
-  const renderSVG = () => {
-    drawLine(dimLines[0], getHotspot('hotspot-dot+X-Y+Z'), getHotspot('hotspot-dot+X-Y-Z'), getHotspot('hotspot-dim+X-Y'));
-    drawLine(dimLines[1], getHotspot('hotspot-dot+X-Y-Z'), getHotspot('hotspot-dot+X+Y-Z'), getHotspot('hotspot-dim+X-Z'));
-    drawLine(dimLines[2], getHotspot('hotspot-dot+X+Y-Z'), getHotspot('hotspot-dot-X+Y-Z'));
-    drawLine(dimLines[3], getHotspot('hotspot-dot-X+Y-Z'), getHotspot('hotspot-dot-X-Y-Z'), getHotspot('hotspot-dim-X-Z'));
-    drawLine(dimLines[4], getHotspot('hotspot-dot-X-Y-Z'), getHotspot('hotspot-dot-X-Y+Z'), getHotspot('hotspot-dim-X-Y'));
-  };
-
-  const center = modelViewer.getBoundingBoxCenter();
-  const size = modelViewer.getDimensions();
-  const x2 = size.x / 2;
-  const y2 = size.y / 2;
-  const z2 = size.z / 2;
-
-  modelViewer.updateHotspot({
-    name: 'hotspot-dot+X-Y+Z',
-    position: `${center.x + x2} ${center.y - y2} ${center.z + z2}`
-  });
-
-  modelViewer.updateHotspot({
-    name: 'hotspot-dim+X-Y',
-    position: `${center.x + x2 * 1.2} ${center.y - y2 * 1.1} ${center.z}`
-  });
-  getHotspot('hotspot-dim+X-Y').textContent = `${(size.z * 100).toFixed(0)} cm`;
-
-  modelViewer.updateHotspot({
-    name: 'hotspot-dot+X-Y-Z',
-    position: `${center.x + x2} ${center.y - y2} ${center.z - z2}`
-  });
-
-  modelViewer.updateHotspot({
-    name: 'hotspot-dim+X-Z',
-    position: `${center.x + x2 * 1.2} ${center.y} ${center.z - z2 * 1.2}`
-  });
-  getHotspot('hotspot-dim+X-Z').textContent = `${(size.y * 100).toFixed(0)} cm`;
-
-  modelViewer.updateHotspot({
-    name: 'hotspot-dot+X+Y-Z',
-    position: `${center.x + x2} ${center.y + y2} ${center.z - z2}`
-  });
-
-  modelViewer.updateHotspot({
-    name: 'hotspot-dim+Y-Z',
-    position: `${center.x} ${center.y + y2 * 1.1} ${center.z - z2 * 1.1}`
-  });
-  getHotspot('hotspot-dim+Y-Z').textContent = `${(size.x * 100).toFixed(0)} cm`;
-
-  modelViewer.updateHotspot({
-    name: 'hotspot-dot-X+Y-Z',
-    position: `${center.x - x2} ${center.y + y2} ${center.z - z2}`
-  });
-
-  modelViewer.updateHotspot({
-    name: 'hotspot-dim-X-Z',
-    position: `${center.x - x2 * 1.2} ${center.y} ${center.z - z2 * 1.2}`
-  });
-  getHotspot('hotspot-dim-X-Z').textContent = `${(size.y * 100).toFixed(0)} cm`;
-
-  modelViewer.updateHotspot({
-    name: 'hotspot-dot-X-Y-Z',
-    position: `${center.x - x2} ${center.y - y2} ${center.z - z2}`
-  });
-
-  modelViewer.updateHotspot({
-    name: 'hotspot-dim-X-Y',
-    position: `${center.x - x2 * 1.2} ${center.y - y2 * 1.1} ${center.z}`
-  });
-  getHotspot('hotspot-dim-X-Y').textContent = `${(size.z * 100).toFixed(0)} cm`;
-
-  modelViewer.updateHotspot({
-    name: 'hotspot-dot-X-Y+Z',
-    position: `${center.x - x2} ${center.y - y2} ${center.z + z2}`
-  });
-
-  renderSVG();
-
-  modelViewer.addEventListener('camera-change', renderSVG);
-
-  function toggleDimensionsVisibility() {
-    dimensionsVisible = !dimensionsVisible;
-    dimElements.forEach((element) => {
-      if (dimensionsVisible) {
-        element.classList.remove('hide');
-      } else {
-        element.classList.add('hide');
-      }
-    });
-
-    if (dimensionsVisible) {
-      modelViewer.cameraOrbit = "50deg 80deg 50m";
-    }
-  }
-
-  toggleButton.addEventListener('click', toggleDimensionsVisibility);
-
-  // Começa com as medidas escondidas
-  dimElements.forEach((element) => {
-    element.classList.add('hide');
-  });
-
-  // Toggle visual 'selected' button class
-  const toggleDimensionsButton = document.querySelector('.toggle-dimensions-button');
-  if (toggleDimensionsButton) {
-    toggleDimensionsButton.addEventListener('click', () => {
-      toggleDimensionsButton.classList.toggle('selected');
-    });
+    isQRCodeVisible = false;
   }
 });

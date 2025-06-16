@@ -16,7 +16,9 @@
   "galleryImages": [
     "1.jpg",
     "2.jpg",
-    "3.jpg"
+    "3.jpg",
+    "4.jpg",
+    "5.jpg"
   ],
   "hotspots": [
     {
@@ -34,12 +36,6 @@
       "action": "ChangeMaterials",
       "materialGroup": "wood",   
       "initialName": "OILED OAK" 
-    },
-    {
-      "id": "MEDIDAS",
-      "position": "-0.2900633836283635m 0.0006853519483555615m 0.289167329928877m",
-      "image": "../../ruler.png",
-      "action": "Measurements"
     }
   ],
   "materials": { 

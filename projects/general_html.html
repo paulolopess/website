@@ -27,56 +27,39 @@
   camera-controls
   shadow-intensity="1">
 
-  <div id="ar-qr-code" class="ar-qr-button">
-    <img id="ar-logo" src="./augmented_reality_logo2.png" alt="AR QR Code">
-  </div>
-
-  <div id="qr-code-container" style="display: none;">
-    <div id="qr-code"></div>
-  </div>
-
-  <!-- Hotspot para ativar as medidas -->
-  <button slot="hotspot-medidas" class="toggle-dimensions-button">
-    Mostrar Medidas
+  <button slot="ar-button" class="ar-button" id="ar-trigger">
+      <img src="./augmented_reality_logo.png">
   </button>
+  
+  <!-- Button to generate QR code -->
+  <div id="ar-qr-code" class="ar-qr-button" onclick="generateQRCode()">
+      <img id="ar-logo" src="./augmented_reality_logo2.png" alt="AR QR Code">
+  </div>
 
-  <!-- Hotspots para as medidas (botões) -->
-  <button slot="hotspot-dim+X-Y">0 cm</button>
-  <button slot="hotspot-dim+X-Z">0 cm</button>
-  <button slot="hotspot-dim+Y-Z">0 cm</button>
-  <button slot="hotspot-dim-X-Z">0 cm</button>
-  <button slot="hotspot-dim-X-Y">0 cm</button>
-
-  <!-- Hotspots "dot" para as linhas das medidas -->
-  <button slot="hotspot-dot+X-Y+Z"></button>
-  <button slot="hotspot-dot+X-Y-Z"></button>
-  <button slot="hotspot-dot+X+Y-Z"></button>
-  <button slot="hotspot-dot-X+Y-Z"></button>
-  <button slot="hotspot-dot-X-Y-Z"></button>
-  <button slot="hotspot-dot-X-Y+Z"></button>
-
-  <!-- SVG para as linhas -->
-  <svg id="dimLines" slot="hotspot-dimLines" width="600" height="400" style="position:absolute; top:0; left:0; pointer-events:none;">
-    <line stroke="red" stroke-width="2" />
-    <line stroke="red" stroke-width="2" />
-    <line stroke="red" stroke-width="2" />
-    <line stroke="red" stroke-width="2" />
-    <line stroke="red" stroke-width="2" />
-  </svg>
+  <!-- QR code container (hidden initially) -->
+  <div id="qr-code-container" style="display: none;">
+      <div id="qr-code"></div>
+  </div>
 
 </model-viewer>
 
 
 <!-- MORE INFO -->
-<button class="wrap" id="toggle-hotspots-button"> <div class="border-button">
-        <div class="arrow-text-wrapper">
-            <div class="arrow-text">Find out more</div>
-        </div>
-        <div class="arrow">
-            <span></span>
-            <span></span>
-        </div>
+<button class="wrap" id="toggle-hotspots-button">
+  <div class="border-button">
+    <div class="arrow-text-wrapper">
+      <div class="arrow-text">Find out more</div>
     </div>
+    
+    <!-- NEW HITBOX WRAPPER ADDED HERE -->
+    <div class="arrow-hitbox">
+      <div class="arrow">
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+  </div>
 </button>
 
 
@@ -95,9 +78,11 @@
 
 <!-- IMAGENS -->
 <div class="gallery">
-    <div class="gallery-items">
-</div>
-<div class="gallery-text">Click to expand</div>
+  <div class="gallery-items">
+  </div>
+  <div class="gallery-text">
+    Click to Expand
+  </div>
 </div>
 
 

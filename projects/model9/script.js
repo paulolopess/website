@@ -172,6 +172,7 @@ nextArrow?.addEventListener('click', () => navigate(1));
 modalImg.addEventListener('click', () => navigate(1));
 
 
+
 // --------------------- ALTERAR TEXTURAS ------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   const materialContainer = document.getElementById("material-change-container");
@@ -322,6 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+ 
 
 // --------------------- MEDIDAS ------------------------------------------------------------------------------
 document.querySelector('#viewer').addEventListener('load', () => {
@@ -460,7 +462,6 @@ if (toggleDimensionsButton) {
   });
 }
 });
-
 
 
 

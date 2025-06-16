@@ -107,14 +107,16 @@ model-viewer {
   z-index: 200; /* Ensure the button stays on top */
   opacity: 1; /* Always visible */
   transition: opacity 0.3s ease;
-  }
-  .ar-button img {
+}
+
+.ar-button img {
   width: 35px;
   height: auto;
   transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-  /* Style for the AR button */
-  .ar-qr-button {
+}
+
+/* Style for the AR button */
+.ar-qr-button {
   position: fixed;
   top: 30px;
   right: 30px;
@@ -125,26 +127,30 @@ model-viewer {
   z-index: 100; /* Ensure the button stays on top */
   opacity: 1; /* Always visible */
   transition: opacity 0.3s ease;
-  }
-  /* Style for the image inside the button */
-  .ar-qr-button img {
+}
+
+/* Style for the image inside the button */
+.ar-qr-button img {
   width: 40px;
   height: auto;
   transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-  /* Style for the QR code logo */
-  #ar-logo {
+}
+
+/* Style for the QR code logo */
+#ar-logo {
   width: 40px; /* Adjust the size of the logo */
   border: 3px solid transparent; /* No border initially */
   transition: all 0.3s ease; /* Smooth transition for border and opacity */
-  }
-  /* Add border and animation for disappearing */
-  #ar-logo.fade-out {
+}
+
+/* Add border and animation for disappearing */
+#ar-logo.fade-out {
   opacity: 0; /* Fade out */
   border-color: rgba(0, 0, 0, 0.5); /* Change border color to dark when fading out */
-  }
-  /* Position the QR code container */
-  #qr-code-container {
+}
+
+/* Position the QR code container */
+#qr-code-container {
   display: none; /* Initially hidden */
   position: fixed; /* Fixed positioning */
   top: 30px; /* 50px from the top */
@@ -155,9 +161,10 @@ model-viewer {
   transform: scale(.8); /* Start scaled down */
   transform-origin: top right; /* Scale from the top-right corner */
   animation: fadeInScale 0.5s ease forwards; /* Add animation */
-  }
-  /* Animation for fade-in and scale */
-  @keyframes fadeInScale {
+}
+
+/* Animation for fade-in and scale */
+@keyframes fadeInScale {
   0% {
     opacity: 0;
     transform: scale(0.8);
@@ -166,18 +173,50 @@ model-viewer {
     opacity: 1;
     transform: scale(1);
   }
-  }
-  /* Style for QR code itself */
-  #qr-code {
+}
+
+/* Style for QR code itself */
+#qr-code {
   border: 4px solid #000; /* You can change the color and thickness */
   border-radius: 8px; /* Optional: rounded corners */
   padding: 10px; /* Optional: spacing between the QR and border */
-  background-color: #ffffff00; /* Optional: background for contrast */
+  background-color: #ff000000; /* Optional: background for contrast */
 }
 
 
 
 /*--------------------------- SETA ---------------------------------------------------------------------------------*/
+/* CLICKABLE CIRCLE AREA BEHIND THE ARROW */
+.arrow-hitbox {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 29; /* behind the arrow, but still clickable */
+  background: rgba(255, 0, 0, 0); /* or rgba(0,0,0,0.05) for a slight visible circle */
+}
+
+/* Ensure arrow is still visible and clickable */
+.arrow {
+  position: relative;
+  bottom: 0px;
+  top: 25%;
+  left: -7%;
+  width: 1.3rem;
+  height: 1.3rem;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 30;
+  transition: all 0.3s ease;
+  pointer-events: none; /* Let .arrow-hitbox handle clicks */
+}
+
 .wrap {
   position: absolute;
   bottom: 30px;
@@ -248,25 +287,14 @@ model-viewer {
   white-space: nowrap; /* Prevent text wrapping */
 }
 
-/* Arrow styles (invisible initially) */
-.arrow {
-  bottom: 0px;
-  width: 1.25rem;
-  height: 1.25rem;
-  display: inline-block;
-  position: absolute;
-  opacity: 0;  /* Initially invisible */
-  z-index: 30;
-  transition: all 0.3s ease;
-  transform: translate(-50%, -50%); /* Ensure both axes are centered */
-}
-
 .arrow span {
-  position: fixed;
-  width: 0.84rem;
-  height: 0.2rem;
+  position: absolute;
+  width: 1rem; /* Longer line */
+  height: 0.1rem;
   background-color: #000;
-  display: inline-block;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
   transition: all 0.2s ease;
 }
 
@@ -425,27 +453,41 @@ model-viewer {
 
 
 /*------------------ GALERIA ----------------------------------------------------------------------------------- */
+/* --- Base Gallery Styles --- */
 .gallery {
-  position: fixed;
-  right: 30px;
+  position: absolute;
+  right: 20px;
   width: 21%;
-  max-height: 90%; /* Maximum height as per the viewport */
-  background: rgba(230, 230, 230, 0.2); /* Changed for more clarity */
-  padding: 10px;
+  max-height: 75%; /* Maximum height as per the viewport */
+  background: rgb(230, 230, 230); /* Solid light gray background */
   overflow-y: auto;
-  border-radius: 8px;
+  border-radius: 12px; /* Slightly larger border-radius for a softer feel */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align content at the top */
-  animation: slideUp 1.5s ease-out forwards; /* Slower slide up */
+  justify-content: flex-start;
+  animation: slideUp 1.2s ease-out forwards; /* Slightly faster slide up with a smooth ease-out */
   z-index: 20;
-
-  /* Hide scrollbar for Chrome, Safari, and Edge */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
 }
 
-/* Keyframes for sliding the gallery from the bottom */
+/* Scrollbar styles for Webkit browsers (Chrome, Safari) */
+.gallery::-webkit-scrollbar {
+  width: 8px;
+}
+
+.gallery::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03); /* Very subtle track */
+  border-radius: 10px;
+}
+
+.gallery::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15); /* Slightly darker, more visible thumb */
+  border-radius: 10px;
+  border: 2px solid transparent; /* No border for a cleaner look */
+}
+
+/* --- Gallery Animations --- */
 @keyframes slideUp {
   0% {
     bottom: -100%; /* Start off-screen */
@@ -455,74 +497,117 @@ model-viewer {
   }
 }
 
-/* Reverse animation for closing the gallery */
 @keyframes slideDown {
   0% {
-    bottom: 30px; /* Start at the open position */
+    bottom: 10px; /* Start at the open position */
   }
   100% {
     bottom: -100%; /* Move off-screen */
   }
 }
 
-/* Gallery items wrapper */
+/* Reverse animation for closing the gallery */
+.gallery.closed {
+  animation: slideDown 1.0s ease-in forwards; /* Faster slide down with ease-in */
+}
+
+/* --- Gallery Items Wrapper --- */
 .gallery-items {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 10px; /* Space between items */
+  justify-content: space-around; /* Distribute items more evenly */
+  padding: 15px; /* Add some internal padding */
+  gap: 12px; /* Slightly more space between items */
 }
 
-/* Individual gallery item */
+/* --- Individual Gallery Item --- */
 .gallery-item {
-  flex: 1 1 150px; /* Allow images to grow and shrink with a minimum width */
+  flex: 1 1 140px; /* Adjusted base for better fitting, allows more items per row */
+  max-width: 100%; /* Cap individual item width */
   overflow: hidden;
-  border-radius: 8px;
-  transition: transform 0.3s ease;
-  max-height: 500px; /* Max height for individual items */
-  opacity: 0; /* Make items initially invisible */
-  animation: fadeInUp 1s ease-out forwards; /* Slower fade-in and scale-up animation */
+  border-radius: 10px; /* Slightly larger border-radius for items */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for transform and shadow */
+  max-height: 300px; /* Slightly reduced max height for balance */
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards; /* Faster fade-in and scale-up */
 }
 
-/* Staggered animation for each gallery item */
-.gallery-item:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.gallery-item:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.gallery-item:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.gallery-item:nth-child(4) {
-  animation-delay: 0.4s;
-}
-.gallery-item:nth-child(5) {
-  animation-delay: 0.5s;
-}
-.gallery-item:nth-child(6) {
-  animation-delay: 0.6s;
-}
-.gallery-item:nth-child(7) {
-  animation-delay: 0.7s;
-}
+/* Staggered animation for each gallery item - NOW WITH 2s DIFFERENCE */
+.gallery-item:nth-child(1) { animation-delay: 1s; } /* Start immediately */
+.gallery-item:nth-child(2) { animation-delay: 1.2s; }
+.gallery-item:nth-child(3) { animation-delay: 1.4s; }
+.gallery-item:nth-child(4) { animation-delay: 1.6s; }
+.gallery-item:nth-child(5) { animation-delay: 1.8s; }
+.gallery-item:nth-child(6) { animation-delay: 2s; }
+.gallery-item:nth-child(7) { animation-delay: 2.2s; }
+.gallery-item:nth-child(8) { animation-delay: 2.4s; }
+.gallery-item:nth-child(9) { animation-delay: 2.6s; }
+.gallery-item:nth-child(10) { animation-delay: 2.8s; }
+.gallery-item:nth-child(11) { animation-delay: 3s; }
+.gallery-item:nth-child(12) { animation-delay: 3.2s; }
 
-/* Image styles */
+
+/* --- Image/Video Styles --- */
 .gallery-item img,
 .gallery-item video {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensure images cover their containers */
+  object-fit: cover;
   display: block;
-  transition: transform 0.3s ease;
-  border-radius: 8px; /* Keep rounded corners consistent */
+  transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition for transform and filter */
+  border-radius: 8px; /* Slightly smaller border-radius for the media inside */
 }
 
-/* Animation for fading and scaling */
+/* --- Animation for Fading and Scaling --- */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(15px) scale(0.98); /* Start slightly smaller and lower */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --- Hover Effects --- */
+.gallery-item:hover {
+  transform: translateY(-3px) scale(1.02); /* Slight lift and subtle scale */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+}
+
+.gallery-item img:hover,
+.gallery-item video:hover {
+  transform: scale(1.06); /* Slightly more pronounced scale on media hover */
+  filter: brightness(1.05); /* Subtle brightness increase */
+}
+
+/* --- Gallery Text (Call to Action) --- */
+.gallery-text {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background: rgb(230, 230, 230); /* Solid light gray background */
+  padding: 15px;
+  text-align: center;
+  font-size: 1.1em; /* Use relative units for better scalability */
+  font-family: 'Quicksand', sans-serif;
+  color: rgba(0, 0, 0, 0.65); /* Darker text for better readability */
+  border-top: 1px solid rgba(0, 0, 0, 0.07); /* Subtle top border */
+  border-bottom-left-radius: 12px; /* Match gallery border-radius */
+  border-bottom-right-radius: 12px; /* Match gallery border-radius */
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow upwards */
+  pointer-events: none; /* Allows clicks to pass through if it's purely informational */
+  font-weight: 500; /* Slightly bolder text */
+  opacity: 0; /* Start invisible */
+  animation: fadeInText 0.5s ease-out 1.9s forwards; /* Fade in over 0.5s, starts after 2.2s */
+}
+
+/* Keyframes for the text fade-in animation */
+@keyframes fadeInText {
+  0% {
+    opacity: 0;
+    transform: translateY(10px); /* Optional: slight slide up effect */
   }
   100% {
     opacity: 1;
@@ -530,47 +615,66 @@ model-viewer {
   }
 }
 
-/* Hover effects */
-.gallery-item:hover {
-  transform: scale(1.05);
-}
-
-.gallery-item img:hover {
-  transform: scale(1.1);
-}
-.gallery-item video:hover {
-  transform: scale(1.1);
-}
-
-/* When gallery is closed, apply slideDown animation */
-.gallery.closed {
-  animation: slideDown 1.5s ease-out forwards; /* Reverse the slide up animation */
-}
-
-/* Text at the bottom of the gallery */
-.gallery-text {
-  text-align: center;
-  font-size: 16px;
-  font-family: 'Quicksand', sans-serif;
-  color: #000000; /* Subtle color */
-  opacity: 0; /* Initially invisible */
-  animation: fadeInText 1.5s ease-out forwards;
-  animation-delay: 1.5s; /* Appears after the items */
-  margin: 10px;
-}
-
-/* Fade-in animation for text */
-@keyframes fadeInText {
-  0% {
-    opacity: 0;
-    transform: translateY(10px); /* Slight downward shift */
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+  .gallery {
+    width: 28%; /* Wider on slightly smaller screens */
+    right: 15px;
   }
-  100% {
-    opacity: 1;
-    transform: translateY(0); /* Back to normal position */
+  .gallery-item {
+    flex: 1 1 120px;
+    max-width: 160px;
   }
 }
 
+@media (max-width: 768px) {
+  .gallery {
+    right: 10px;
+    width: 90%; /* Much wider on tablets/larger phones */
+    max-height: 80%;
+    left: 50%;
+    transform: translateX(-50%); /* Center the gallery */
+    bottom: 10px !important; /* Ensure it stays at the bottom */
+  }
+  .gallery.closed {
+    animation: slideDown 1.0s ease-in forwards;
+    transform: translateX(-50%) translateY(100%); /* Adjust transform for closing */
+  }
+  .gallery-items {
+    justify-content: center; /* Center items on smaller screens */
+    padding: 10px;
+  }
+  .gallery-item {
+    flex: 1 1 100px; /* Smaller base for items */
+    max-width: 150px;
+  }
+  .gallery-text {
+    font-size: 1em;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery {
+    right: 5px;
+    left: 5px;
+    width: auto; /* Let content dictate width within padding */
+    max-height: 85%;
+    bottom: 5px !important;
+    transform: none; /* Remove transform for centering if width is auto */
+  }
+  .gallery.closed {
+    transform: translateY(100%); /* Adjust transform for closing */
+  }
+  .gallery-items {
+    gap: 8px; /* Slightly less gap on very small screens */
+  }
+  .gallery-item {
+    flex: 1 1 100%; /* Stack items vertically on very small phones */
+    max-width: 90%; /* Max width relative to gallery */
+    margin: 0 auto; /* Center individual items */
+  }
+}
 
 
 /*-------------------------- EXPANDIR IMAGENS --------------------------------------------------------------------------------*/
@@ -756,67 +860,4 @@ model-viewer {
     object-fit: cover;
     border-radius: 50%;
     display: block;
-}
-
-
-
-/*-------------------------- MEASUREMENTS STYLES -------------------------------------------------------------*/
-.dot {
-  display: none;
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.37);
-  backdrop-filter: blur(8px) contrast(0.89) saturate(1.27);
-  -webkit-backdrop-filter: blur(8px) contrast(0.89) saturate(1.27);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-}
-
-.dim {
-  border-radius: 4px;
-  border: none;
-  box-sizing: border-box;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-  color: rgba(0, 0, 0, 0.8);
-  display: block;
-  font-family: Futura, Helvetica Neue, sans-serif;
-  font-size: 1em;
-  font-weight: 700;
-  max-width: 128px;
-  overflow-wrap: break-word;
-  padding: 0.5em 1em;
-  position: absolute;
-  width: max-content;
-  height: max-content;
-  transform: translate3d(-50%, -50%, 0);
-  pointer-events: none;
-  --min-hotspot-opacity: 0;
-}
-
-@media only screen and (max-width: 800px) {
-  .dim {
-    font-size: 3vw;
-  }
-}
-
-.dimensionLineContainer {
-  pointer-events: none;
-  display: block;
-}
-
-.dimensionLine {
-  stroke: #16a5e6;
-  stroke-width: 2;
-  stroke-dasharray: 2;
-}
-
-.hide {
-  display: none;
-}
-
-/* This keeps child nodes hidden while the element loads */
-:not(:defined)>* {
-  display: none;
 }
