@@ -13,13 +13,30 @@
   "disable-zoom": true,
   "disable-pan": true,
   "backgroundTopColor": "#441414",
+  "previewImage": "preview.jpg",
   "galleryImages": [
-    "1.jpg",
-    "2.jpg",
-    "3.jpg",
-    "4.jpg",
-    "5.jpg"
+    {
+      "src": "1.jpg",
+      "caption": "Technical Drawings"
+    },
+    {
+      "src": "2.jpg",
+      "caption": "Photography"
+    },
+    {
+      "src": "3.jpg",
+      "caption": "Photography"
+    },
+    {
+      "src": "4.jpg",
+      "caption": "Photography"
+    },
+    {
+      "src": "5.jpg",
+      "caption": "Photography"
+    }
   ],
+  
   "hotspots": [
     {
       "id": "LEATHER",

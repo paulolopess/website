@@ -31,13 +31,5 @@
       "alphaValueOn": 0.3,
       "alphaValueOff": 1.0 
     }
-  ],
-  "materials": {
-    "ENVOLVENTE": {
-      "materialIndex": 0,
-      "textures": [
-
-      ]
-    }
-  }
+  ]
 }

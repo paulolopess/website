@@ -54,31 +54,47 @@ model-viewer {
   width: 100vw;    /* 100% da largura da janela */
   height: 100vh;   /* 100% da altura da janela */
   object-fit: contain; /* Garante que o modelo se ajusta ao tamanho da tela sem distorção */
-  z-index: 10;
+  contain: layout style;
+  z-index: 1;
 }
 
 
 
-/*------------------------------ TÍTULO -----------------------------------------------------------------------*/
+/*------------------------------ TÍTULO ADAPTATIVO -----------------------------------------------------------------------*/
 .title {
-  position: fixed;
-  font-size: 17vw;
-  font-family: 'Anton', sans-serif;
-  text-transform: uppercase;
-  white-space: nowrap;
-  background: linear-gradient(rgba(230, 230, 230, 0.5) 20%, transparent 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  z-index: 5;
-  opacity: 0; /* Estado inicial da animação */
-  transform: translateY(100%); /* Estado inicial da animação */
-  animation: fadeInBottom 1s ease-out forwards; /* Adiciona forwards */
+    position: absolute; /* Change to absolute to allow 100% width/height */
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    width: 100%; /* Make it span the full width of its parent */
+    height: 100%; /* Make it span the full height of its parent */
+    display: flex; /* Use flexbox for easy centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    overflow: hidden; /* Hide any overflowing parts of the text */
+    font-size: 17vw;
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    background: linear-gradient(rgba(230, 230, 230, 0.5) 20%, transparent 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 0;
+    
+    opacity: 0; /* Initial state for animation */
+    transform: translateY(100%); /* Initial state for animation */
+    animation: fadeInBottom 1s ease-out forwards;
+    text-align: center; /* Ensure text is centered if it wraps */
 }
-  @keyframes fadeInBottom {
+
+@keyframes fadeInBottom {
     100% {
         opacity: .5;
-        transform: translateY(-8%) scaleY(1.8);
+        /* Adjust transform to work with new positioning. 
+           -8% translateY might move it too much off center.
+           You might want to remove scaleY(1.8) if it distorts too much with wrapping.
+           Let's aim for slight adjustment from the center. */
+        transform: translateY(-5%) scaleY(1.8); /* Start closer to actual position, or adjust */
     }
 }
 
@@ -92,6 +108,7 @@ model-viewer {
     z-index: 20;
     width: 70px; /* Adjust logo size */
     height: auto;
+    z-index: 999;
 }
 
 
@@ -108,14 +125,12 @@ model-viewer {
   opacity: 1; /* Always visible */
   transition: opacity 0.3s ease;
 }
-
 .ar-button img {
   width: 35px;
   height: auto;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Style for the AR button */
 .ar-qr-button {
   position: fixed;
   top: 30px;
@@ -128,60 +143,237 @@ model-viewer {
   opacity: 1; /* Always visible */
   transition: opacity 0.3s ease;
 }
-
-/* Style for the image inside the button */
 .ar-qr-button img {
   width: 40px;
   height: auto;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-
-/* Style for the QR code logo */
-#ar-logo {
-  width: 40px; /* Adjust the size of the logo */
-  border: 3px solid transparent; /* No border initially */
-  transition: all 0.3s ease; /* Smooth transition for border and opacity */
-}
-
-/* Add border and animation for disappearing */
 #ar-logo.fade-out {
   opacity: 0; /* Fade out */
   border-color: rgba(0, 0, 0, 0.5); /* Change border color to dark when fading out */
 }
 
-/* Position the QR code container */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------------------------ QR CODE CONTAINER STYLES --------------------------------------------------------*/
+#qr-intro-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  flex-direction: column;
+}
+#qr-intro-overlay.show {
+  display: flex;
+}
+.qr-intro-blur {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(8px);
+}
+.qr-intro-message {
+  position: relative;
+  color: white;
+  font-size: 3vw;
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  z-index: 1001;
+  animation: fadeInOut 3s forwards;
+}
+@keyframes fadeInOut {
+  0%,100%{opacity:0;}
+  20%,80%{opacity:1;}
+}
+
+
 #qr-code-container {
-  display: none; /* Initially hidden */
-  position: fixed; /* Fixed positioning */
-  top: 30px; /* 50px from the top */
-  right: 30px; /* 30px from the right */
-  z-index: 200; /* Ensure it's on top of other elements */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 50%;
+  height: 60%;
+  padding: 1.5rem 2rem;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: stretch;
+  backdrop-filter: blur(30px);
+  background: rgba(0, 0, 0, 0);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.534);
+  z-index: 15;
+  opacity: 0;
+  pointer-events: none; /* Prevent interaction when hidden */
+  transform-origin: center;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  overflow: hidden;
+  display: none; /* Start hidden */
+}
+
+/* When visible */
+#qr-code-container.visible {
+  display: flex;      /* Show flex layout */
+  opacity: 1;         /* Fade in */
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto; /* Enable interaction */
+}
+
+.qr-preview-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 1.5rem;
+}
+
+/* Colunas */
+.qr-column {
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+}
+
+.qr-column.left {
+    width: 40%; /* Keep this, but ensure its content fills it */
+    height: 100%;
+    display: flex;
+    justify-content: center; /* This might be making the video look small if it's not filling its own container */
+    align-items: center; /* This might be making the video look small if it's not filling its own container */
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* Make #ar-preview-container fill the whole column more effectively */
+#ar-preview-container {
+    width: 50%; /* Make it fill its parent .qr-column.left */
+    height: 100%; /* Make it fill its parent .qr-column.left */
+    display: flex; /* Use flexbox to center video/image if needed */
+    justify-content: center;
+    align-items: center;
+}
+
+#ar-preview-container video,
+#ar-preview-container img { /* Apply styles to both video and img */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This is good for maintaining aspect ratio and filling space, cropping if necessary */
+    object-position: center;
+    border-radius: 10px;
+    pointer-events: none; /* Impede interação com o vídeo */
+}
+
+/* Coluna direita: textos e QR */
+.qr-column.right {
+    width: 60%; /* Changed from 60% to 50% to balance with left column */
+    height: 100%;
+    display: flex; /* Added display flex */
+    flex-direction: column; /* Added flex direction column */
+    justify-content: center; /* Center content vertically */
+    padding-left: 1rem;
+}
+
+.qr-column.right .intro {
+  font-family: 'Quicksand', sans-serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 30px;
+  color: white;
+  margin-bottom: 1rem;
   text-align: center;
-  opacity: 0; /* Start with no opacity */
-  transform: scale(.8); /* Start scaled down */
-  transform-origin: top right; /* Scale from the top-right corner */
-  animation: fadeInScale 0.5s ease forwards; /* Add animation */
 }
 
-/* Animation for fade-in and scale */
-@keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+.qr-column.right .instructions {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1em;
+  margin: 0 0 1.5rem 1rem;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-/* Style for QR code itself */
 #qr-code {
-  border: 4px solid #000; /* You can change the color and thickness */
-  border-radius: 8px; /* Optional: rounded corners */
-  padding: 10px; /* Optional: spacing between the QR and border */
-  background-color: #ff000000; /* Optional: background for contrast */
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  border: 1px solid white;  
+  padding: 8px;              
+  box-sizing: content-box;
+  background-color: transparent;
+  border-radius: 10px;
 }
+
+.white-icon {
+  filter: invert(1) brightness(2);
+  transition: filter 1s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -222,7 +414,7 @@ model-viewer {
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 50;
+  z-index: 30;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -253,7 +445,7 @@ model-viewer {
   display: inline-block;
   padding: 0px 10px; /* Initial padding for the rectangle */
   background-color: transparent;
-  border: 2px solid #000;
+  border: 1px solid #000;
   border-radius: 50px; /* Initial rounded corners */
   cursor: pointer;
   position: relative;
@@ -399,7 +591,7 @@ model-viewer {
   color: white;
   font-family: 'Quicksand', sans-serif;
   animation: slideUp 1.5s ease-out forwards; /* Slide up animation */
-  z-index: 10;
+  z-index: 5;
 }
 
 /* Keyframes for sliding up */
@@ -430,7 +622,7 @@ model-viewer {
 /* Styling for the text elements inside bottom-left-container */
 .bottom-left h1 {
   margin: 0;
-  font-size: 60px;
+  font-size: 3vw;
   font-family: 'Anton', sans-serif;
   color: rgb(0, 0, 0);
   line-height: 1;
@@ -458,7 +650,8 @@ model-viewer {
   position: absolute;
   right: 20px;
   width: 21%;
-  max-height: 75%; /* Maximum height as per the viewport */
+  bottom: 10px;
+  max-height: 70%; /* Maximum height as per the viewport */
   background: rgb(230, 230, 230); /* Solid light gray background */
   overflow-y: auto;
   border-radius: 12px; /* Slightly larger border-radius for a softer feel */
@@ -466,7 +659,7 @@ model-viewer {
   flex-direction: column;
   justify-content: flex-start;
   animation: slideUp 1.2s ease-out forwards; /* Slightly faster slide up with a smooth ease-out */
-  z-index: 20;
+  z-index: 5;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
 }
@@ -527,7 +720,6 @@ model-viewer {
   overflow: hidden;
   border-radius: 10px; /* Slightly larger border-radius for items */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for transform and shadow */
-  max-height: 300px; /* Slightly reduced max height for balance */
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards; /* Faster fade-in and scale-up */
 }
@@ -600,7 +792,7 @@ model-viewer {
   pointer-events: none; /* Allows clicks to pass through if it's purely informational */
   font-weight: 500; /* Slightly bolder text */
   opacity: 0; /* Start invisible */
-  animation: fadeInText 0.5s ease-out 1.9s forwards; /* Fade in over 0.5s, starts after 2.2s */
+  animation: fadeInText 0.5s ease-out 1.6s forwards; /* Fade in over 0.5s, starts after 2.2s */
 }
 
 /* Keyframes for the text fade-in animation */
@@ -678,63 +870,66 @@ model-viewer {
 
 
 /*-------------------------- EXPANDIR IMAGENS --------------------------------------------------------------------------------*/
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 30;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    overflow: auto;
-    justify-content: center;
-    align-items: center;
-  }
+.modal {
+  display: flex; /* Garante que os itens internos (o container do modal) sejam centralizados */
+  position: fixed;
+  inset: 0; /* Cobre toda a viewport */
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+  flex-direction: column; /* Organiza os itens em coluna, embora só haja um (o container) */
+  justify-content: center; /* Centraliza o .modal-container verticalmente */
+  align-items: center; /* Centraliza o .modal-container horizontalmente */
+}
 
-  .modal-content {
-    max-width: 50%;
-    max-height: 70%;
-    margin: auto;
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 20; /* Ensure the image is on top of the blurred background */
-    border-radius: 15px; /* Add rounded corners */
-  }
+.modal-container {
+  display: flex; /* Usa flexbox para centralizar o conteúdo interno */
+  flex-direction: column;
+  justify-content: center; /* Centraliza a mídia e a legenda verticalmente */
+  align-items: center; /* Centraliza a mídia e a legenda horizontalmente */
+  background: rgba(0, 0, 0, 0.1);
+  width: 55%;
+  height: 65%;
+  padding: 0;
+  border-radius: 12px;
+  position: relative; /* Essencial para posicionar o botão de fechar */
+  box-sizing: border-box;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.534);
+  max-width: 90vw; /* Limita a largura máxima a 90% da largura da viewport */
+  max-height: 90vh; /* Limita a altura máxima a 90% da altura da viewport */
+}
 
-  #video01 {
-    display: none; /* Hide video initially */
-  }
+.modal-media {
+  width: 100%; /* Faz a mídia ocupar 100% da largura do seu container */
+  height: 100%; /* Faz a mídia ocupar 100% da altura do seu container */
+  object-fit: cover; /* Redimensiona a mídia para caber dentro do container, mantendo sua proporção */
+  border-radius: 12px;
+  max-width: 100%;
+  max-height: 100%;
+}
 
-  .close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: #ffffff79;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    z-index: 30; /* Ensure the close button is on top */
-  }
+#modal-caption {
+  max-width: 90%;
+  margin: 15px auto 0 auto;
+  word-wrap: break-word;
+  text-align: center;
+  white-space: pre-wrap;
+  color: #fff;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+}
 
-  .close:hover {
-    color: #ffffff;
-  }
-
-  .gallery-item:hover {
-    cursor: pointer;
-  }
-
-  .thumbnail-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensure the video covers the container */
-    border-radius: 15px; /* Add rounded corners */
-  }
+.modal .close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  /* Adicione um z-index para garantir que o botão esteja sempre acima do conteúdo */
+  z-index: 101;
+}
 
 
 

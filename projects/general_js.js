@@ -67,23 +67,44 @@ async function loadProjectData() {
         document.getElementById('project-location').textContent = data.location || '';
         document.getElementById('project-description').innerHTML = data.description || '';
 
-        // Load gallery images
-        const galleryItemsContainer = document.querySelector('.gallery-items');
-        if (galleryItemsContainer) {
-            galleryItemsContainer.innerHTML = '';
-            if (data.galleryImages && Array.isArray(data.galleryImages)) {
-                data.galleryImages.forEach((imgFilename, index) => {
-                    const div = document.createElement('div');
-                    div.className = 'gallery-item';
-                    const img = document.createElement('img');
-                    // Paths for gallery images are relative to project folder
-                    img.src = `./${projectFolder}/IMG/${imgFilename}`;
-                    img.alt = `Image ${index + 1}`;
-                    div.appendChild(img);
-                    galleryItemsContainer.appendChild(div);
-                });
-            }
-        }
+const galleryItemsContainer = document.querySelector('.gallery-items');
+const modal = document.querySelector('.modal');
+const modalImg = document.getElementById('img01');
+const modalCaption = document.getElementById('modal-caption');
+const closeBtn = document.querySelector('.modal .close');
+
+if (galleryItemsContainer && data.galleryImages && Array.isArray(data.galleryImages)) {
+    galleryItemsContainer.innerHTML = '';
+
+    data.galleryImages.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'gallery-item';
+
+        const img = document.createElement('img');
+        img.src = `./${projectFolder}/IMG/${item.src}`;
+        img.alt = item.caption || `Image ${index + 1}`;
+        img.style.cursor = 'pointer';
+
+        // Abrir modal ao clicar na imagem
+        img.addEventListener('click', () => {
+            modal.style.display = 'block';
+            modalImg.style.display = 'block';
+            modalImg.src = img.src;
+            modalCaption.textContent = item.caption || '';
+            // Se quiser trabalhar com vídeos, trate aqui para exibir vídeo ao invés de img
+        });
+
+        div.appendChild(img);
+        galleryItemsContainer.appendChild(div);
+    });
+}
+
+// Fechar modal
+closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    modalImg.style.display = 'none';
+    modalCaption.textContent = '';
+});
 
         // Remove old hotspots before adding new ones
         const oldHotspots = modelViewer.querySelectorAll('[slot^="hotspot-"]');
@@ -457,148 +478,365 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+
+
+
 // ----------------- MODAL GALERIA --------------------------------------------------------------------------------------------------
-  const galleryContainer = document.querySelector('.gallery-items');
-  const modal = document.querySelector('.modal');
-  const modalImg = document.getElementById('img01');
-  const modalVideo = document.getElementById('video01');
-  const videoSource = document.getElementById('videoSource');
-  const closeBtn = document.querySelector('.close');
-  const prevArrow = document.querySelector('.modal .arrow.left');
-  const nextArrow = document.querySelector('.modal .arrow.right');
+const galleryContainer = document.querySelector('.gallery-items');
+const modal = document.querySelector('.modal');
+const modalImg = document.getElementById('img01');
+const modalVideo = document.getElementById('video01');
+const videoSource = document.getElementById('videoSource');
+const closeBtn = document.querySelector('.close');
+const prevArrow = document.querySelector('.modal .arrow.left');
+const nextArrow = document.querySelector('.modal .arrow.right');
+const modalCaption = document.getElementById('modal-caption');
 
-  let currentIndex = 0;
-  let galleryItems = [];
+let currentIndex = 0;
+let galleryItems = [];
+let galleryData = null; // JSON do projeto carregado
 
-  function updateGalleryItems() {
-    galleryItems = Array.from(galleryContainer.querySelectorAll('img, video'));
-  }
-
-  function openModal(index) {
-    if (!modal) return;
-    if (!galleryItems.length) updateGalleryItems();
-
-    modal.style.display = 'flex';
-    const item = galleryItems[index];
-
-    if (item.tagName === 'IMG') {
-      modalImg.src = item.src;
-      modalImg.style.display = 'block';
-      modalVideo.style.display = 'none';
-    } else if (item.tagName === 'VIDEO') {
-      const source = item.querySelector('source');
-      if (source) {
-        videoSource.src = source.src;
-        modalVideo.load();
-        modalVideo.style.display = 'block';
-        modalImg.style.display = 'none';
-        modalVideo.play();
-      }
-    }
-
-    currentIndex = index;
-    document.body.classList.add('blur-background');
-  }
-
-  function closeModal() {
-    modal.style.display = 'none';
-    modalVideo.pause();
-    modalVideo.currentTime = 0;
-    document.body.classList.remove('blur-background');
-  }
-
-  function navigate(step) {
-    currentIndex = (currentIndex + step + galleryItems.length) % galleryItems.length;
-    openModal(currentIndex);
-  }
-
-  galleryContainer?.addEventListener('click', (event) => {
-    const target = event.target;
-    if (target.tagName === 'IMG' || target.tagName === 'VIDEO') {
-      updateGalleryItems();
-      const index = galleryItems.indexOf(target);
-      if (index !== -1) openModal(index);
-    }
-  });
-
-  closeBtn?.addEventListener('click', closeModal);
-
-  window.addEventListener('click', (event) => {
-    if (event.target === modal) closeModal();
-  });
-
-  prevArrow?.addEventListener('click', () => navigate(-1));
-  nextArrow?.addEventListener('click', () => navigate(1));
-  modalImg?.addEventListener('click', () => navigate(1));
-
-updateGalleryItems();
-
-
-
-// --------------------- QR CODE ------------------------------------------------------------------------------
-let isQRCodeVisible = false;
-
-function generateQRCode() {
-  const qrCodeUrl = "https://paulolopess.github.io/website/projects/modelsqrcode/modelqrcode-viewer.html";
-  const qrCodeContainer = document.getElementById("qr-code");
-  const container = document.getElementById("qr-code-container");
-  const logo = document.getElementById("ar-logo");
-
-  if (!isQRCodeVisible) {
-    // Generate QR code if not already created
-    if (!qrCodeContainer.hasChildNodes()) {
-      new QRCode(qrCodeContainer, {
-        text: qrCodeUrl,
-        width: 128,
-        height: 128
-      });
-    }
-
-    // Show the QR code container with animation
-    container.style.display = "block";
-    setTimeout(() => {
-      container.classList.add("visible"); // Trigger fade-in and scale animation
-    }, 10);
-    
-    // Fade-out the logo
-    logo.classList.add("fade-out");
-  } else {
-    // Hide the QR code container with animation
-    container.classList.remove("visible");
-    setTimeout(() => {
-      container.style.display = "none"; // Wait for fade-out animation to finish
-    }, 300);
-    
-    // Add a delay before the logo reappears smoothly
-    setTimeout(() => {
-      logo.classList.remove("fade-out");
-    }, 300); // This delay matches the fade-out time of the QR code
-  }
-
-  isQRCodeVisible = !isQRCodeVisible;
+function updateGalleryItems() {
+  galleryItems = Array.from(galleryContainer.querySelectorAll('img, video'));
 }
 
-// Close the QR code when clicking outside
-document.addEventListener("click", function(event) {
-  const container = document.getElementById("qr-code-container");
-  const button = document.getElementById("ar-qr-code");
+function closeModal() {
+  modal.style.display = 'none';
+  modalVideo.pause();
+  modalVideo.currentTime = 0;
+  document.body.classList.remove('blur-background');
+}
 
-  if (
-    isQRCodeVisible &&
-    !button.contains(event.target) &&
-    !container.contains(event.target)
-  ) {
-    container.classList.remove("visible");
-    setTimeout(() => {
-      container.style.display = "none"; // Wait for fade-out animation
-    }, 300);
-    
-    // Add a delay before the logo reappears smoothly
-    const logo = document.getElementById("ar-logo");
-    setTimeout(() => {
-      logo.classList.remove("fade-out");
-    }, 300); // Match the fade-out time of the QR code
+function navigate(step) {
+  currentIndex = (currentIndex + step + galleryItems.length) % galleryItems.length;
+  openModal(currentIndex);
+}
 
-    isQRCodeVisible = false;
+function openModal(index) {
+  if (!modal) return;
+  if (!galleryItems.length) updateGalleryItems();
+
+  modal.style.display = 'flex';
+  const item = galleryItems[index];
+
+  if (item.tagName === 'IMG') {
+    modalImg.src = item.src;
+    modalImg.style.display = 'block';
+    modalVideo.style.display = 'none';
+
+    if (globalProjectData && globalProjectData.galleryImages) {
+      const imgFileName = item.src.split('/').pop();
+      const imgData = globalProjectData.galleryImages.find(img => img.src === imgFileName);
+      modalCaption.textContent = imgData ? imgData.caption : '';
+    } else {
+      modalCaption.textContent = '';
+    }
+  } else if (item.tagName === 'VIDEO') {
+    modalCaption.textContent = ''; // ou legenda de vídeo, se quiser
+    modalVideo.style.display = 'block';
+    modalImg.style.display = 'none';
+    videoSource.src = item.querySelector('source').src;
+    modalVideo.load();
+    modalVideo.play();
+  }
+
+  currentIndex = index;
+  document.body.classList.add('blur-background');
+}
+
+// Event listeners fora da função openModal, para evitar múltiplas adições de listeners
+galleryContainer?.addEventListener('click', (event) => {
+  const target = event.target;
+  if (target.tagName === 'IMG' || target.tagName === 'VIDEO') {
+    updateGalleryItems();
+    const index = galleryItems.indexOf(target);
+    if (index !== -1) openModal(index);
   }
 });
+
+closeBtn?.addEventListener('click', closeModal);
+
+window.addEventListener('click', (event) => {
+  // Fecha modal se clicar fora da imagem/vídeo (no background do modal)
+  if (event.target === modal) closeModal();
+});
+
+prevArrow?.addEventListener('click', () => navigate(-1));
+nextArrow?.addEventListener('click', () => navigate(1));
+modalImg?.addEventListener('click', () => navigate(1));
+modalVideo?.addEventListener('click', () => navigate(1));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------- BOTAO AR PARA QR CODE E FUNCIONALIDADES --------------------------------------------------------------------------------------------------
+
+let isQRCodeVisible = false;
+let qrCodeInstance = null;
+
+function getProjectFolderFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectFromQuery = urlParams.get('project');
+    if (projectFromQuery) return projectFromQuery;
+
+    const pathSegments = window.location.pathname.split('/');
+    const projectsIndex = pathSegments.indexOf('projects');
+    if (projectsIndex > -1 && pathSegments.length > projectsIndex + 1) {
+        return pathSegments[projectsIndex + 1];
+    }
+    return null;
+}
+
+function generateQRCode(buttonElement) {
+    const introOverlay = document.getElementById("qr-intro-overlay");
+    const introMessage = introOverlay?.querySelector('.qr-intro-message');
+    const container = document.getElementById("qr-code-container");
+    const logo = document.getElementById("ar-logo");
+
+    if (!introOverlay || !introMessage || !container) {
+        console.error("❌ Elementos essenciais do QR code não foram encontrados.");
+        return;
+    }
+
+    // Close QR code if clicked outside (no buttonElement)
+    if (!buttonElement) {
+        if (isQRCodeVisible) closeQRCode();
+        return;
+    }
+
+    if (!isQRCodeVisible) {
+        // Abre QR code e troca cor dos ícones
+        openQROverlay();
+
+        // Open QR code with intro message
+        introOverlay.classList.add("show");
+        introMessage.style.display = 'block';
+        container.style.display = "none";
+        container.classList.remove("visible");
+        logo?.classList.remove("fade-out");
+
+        // Reset animation
+        introMessage.style.animation = 'none';
+        introMessage.offsetHeight; // trigger reflow
+        introMessage.style.animation = null;
+
+        setTimeout(() => {
+            introMessage.style.display = 'none';
+            showQRCodeInstructions(buttonElement);
+        }, 3000);
+    } else {
+        closeQRCode();
+    }
+}
+
+function closeQRCode() {
+    if (!isQRCodeVisible) return; // no need if already closed
+
+    const introOverlay = document.getElementById("qr-intro-overlay");
+    const introMessage = introOverlay?.querySelector('.qr-intro-message');
+    const container = document.getElementById("qr-code-container");
+    const logo = document.getElementById("ar-logo");
+
+    if (!introOverlay || !introMessage || !container) return;
+
+    // Remove efeito QR code visível
+    container.classList.remove("visible");
+    setTimeout(() => {
+        container.style.display = "none";
+        // Clear preview media inside container
+        const previewContainer = document.getElementById("ar-preview-container");
+        if (previewContainer) previewContainer.innerHTML = '';
+    }, 300);
+
+    introOverlay.classList.remove("show");
+    logo?.classList.remove("fade-out");
+
+    introMessage.style.display = 'block';
+
+    // Remove classe white-icon dos ícones para voltar ao normal
+    closeQROverlay();
+
+    isQRCodeVisible = false;
+}
+
+
+function closeQRCode() {
+    if (!isQRCodeVisible) return; // no need if already closed
+
+    const introOverlay = document.getElementById("qr-intro-overlay");
+    const introMessage = introOverlay?.querySelector('.qr-intro-message');
+    const container = document.getElementById("qr-code-container");
+    const logo = document.getElementById("ar-logo");
+
+    if (!introOverlay || !introMessage || !container) return;
+
+    container.classList.remove("visible");
+    setTimeout(() => {
+        container.style.display = "none";
+        // Clear preview media inside container
+        const previewContainer = document.getElementById("ar-preview-container");
+        if (previewContainer) previewContainer.innerHTML = '';
+    }, 300);
+
+    introOverlay.classList.remove("show");
+    logo?.classList.remove("fade-out");
+
+    introMessage.style.display = 'block';
+    isQRCodeVisible = false;
+
+    // Aqui chama para voltar ao estado normal (sem filtro branco)
+    closeQROverlay();
+}
+
+function showQRCodeInstructions(buttonElement) {
+    const projectFolder = getProjectFolderFromURL();
+    if (!projectFolder) {
+        console.error("❌ Não foi possível determinar a pasta do projeto.");
+        return;
+    }
+
+    const mediaType = buttonElement?.dataset?.mediaType;
+    if (!mediaType) {
+        console.error("❌ O botão está sem o atributo 'data-media-type'.");
+        return;
+    }
+
+    const qrCodeUrl = `https://paulolopess.github.io/website/projects/${projectFolder}/${projectFolder}-viewer.html`;
+
+    const container = document.getElementById("qr-code-container");
+    const previewContainer = document.getElementById("ar-preview-container");
+    const qrCodeDiv = document.getElementById("qr-code");
+
+    if (!container || !previewContainer || !qrCodeDiv) return;
+
+    previewContainer.innerHTML = ''; // Clear before inserting new content
+
+    const video = document.createElement("video");
+    video.src = `./${projectFolder}/IMG/preview.mov`;
+    video.controls = false;
+    video.autoplay = false;
+    video.loop = true;
+    video.muted = true;
+    video.classList.add('qr-preview-media');
+
+    // Append the video element immediately
+    previewContainer.appendChild(video);
+
+    // After the container is visible, start playing the video with a delay
+    container.style.display = 'flex';
+    setTimeout(() => {
+        container.classList.add('visible');
+
+        // Delay video playback by 1 second after the container becomes visible
+        setTimeout(() => {
+            // Check if video is loaded and ready to play
+            if (video.readyState >= 3) { // HAVE_FUTURE_DATA or HAVE_ENOUGH_DATA
+                video.play().catch(error => {
+                    console.warn("Autoplay was prevented, trying to play manually later:", error);
+                    // Fallback to image if video can't play (e.g., autoplay policy)
+                    showImageFallback(projectFolder, previewContainer);
+                });
+            } else {
+                video.addEventListener('loadeddata', () => {
+                    video.play().catch(error => {
+                        console.warn("Autoplay prevented after loadeddata, trying to play manually later:", error);
+                        showImageFallback(projectFolder, previewContainer);
+                    });
+                }, { once: true }); // Use { once: true } to remove the listener after it fires
+                video.addEventListener('error', () => {
+                    console.error("Error loading video, falling back to image.");
+                    showImageFallback(projectFolder, previewContainer);
+                }, { once: true });
+            }
+        }, 300); // 1000ms = 1 second delay
+    }, 10); // Small delay to allow display:flex to apply before transition
+
+    // Function to handle image fallback
+    function showImageFallback(folder, container) {
+        container.innerHTML = ''; // Clear video if it was appended
+        const img = document.createElement("img");
+        img.src = `./${folder}/IMG/preview.jpg`;
+        img.alt = "Preview AR";
+        img.classList.add('qr-preview-media');
+        container.appendChild(img);
+    }
+
+    // Existing QR code generation logic
+    if (qrCodeInstance) {
+        qrCodeInstance.clear();
+        qrCodeInstance.makeCode(qrCodeUrl);
+    } else {
+        qrCodeInstance = new QRCode(qrCodeDiv, {
+            text: qrCodeUrl,
+            width: 150,
+            height: 150,
+        });
+    }
+
+    isQRCodeVisible = true;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const qrButton = document.getElementById("ar-qr-code");
+    const introOverlay = document.getElementById("qr-intro-overlay");
+    const qrContainer = document.getElementById("qr-code-container");
+    const blurBackground = document.getElementById("qr-blur-background");
+
+    qrButton?.addEventListener("click", () => generateQRCode(qrButton));
+
+    introOverlay?.addEventListener("click", (e) => {
+        if (e.target === introOverlay) {
+            closeQRCode();
+        }
+    });
+
+    blurBackground?.addEventListener("click", () => {
+        closeQRCode();
+    });
+
+    qrContainer?.addEventListener("click", (e) => e.stopPropagation());
+});
+
+
+
+
+// ----------------- MUDA ICONES PARA BRANCO BOTAO AR --------------------------------------------------------------------------------------------------
+
+function openQROverlay() {
+  const logo = document.getElementById("back-logo");
+  const arIcon = document.getElementById("ar-logo");
+
+  logo?.classList.add("white-icon");
+  arIcon?.classList.add("white-icon");
+  
+  // your existing code to show overlay
+}
+
+function closeQROverlay() {
+  const logo = document.getElementById("back-logo");
+  const arIcon = document.getElementById("ar-logo");
+
+  logo?.classList.remove("white-icon");
+  arIcon?.classList.remove("white-icon");
+
+  // your existing code to hide overlay
+}

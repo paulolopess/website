@@ -14,8 +14,8 @@
   "disable-pan": true,
   "backgroundTopColor": "rgb(167, 111, 47)",
   "galleryImages": [
-    "1.jpeg",
     "3.jpg",
+    "1.jpeg",
     "2.jpeg"
   ]
 }
